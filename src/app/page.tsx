@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { Briefcase, BookOpen, Users, MessageSquare, Award, ThumbsUp, MapPin, Building, IndianRupee, Verified, Bot, Languages, Bell, UserPlus, LogIn, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { StatsCard } from "@/components/stats-card";
 
 const keyFeatures = [
   { title: "Local Jobs Matching", icon: MapPin, description: "Find jobs in your own village or nearby areas." },
@@ -10,6 +9,7 @@ const keyFeatures = [
   { title: "Skill Training Recommendations", icon: Award, description: "Get suggestions for courses to improve your skills." },
   { title: "Direct Employer Access", icon: Building, description: "Connect directly with companies without middlemen." },
   { title: "SMS/WhatsApp Alerts", icon: Bell, description: "Receive job notifications directly on your phone." },
+  { title: "Community Referrals", icon: ThumbsUp, description: "Get job referrals and tips from your peers."}
 ];
 
 const womenEmpowermentJobs = [
@@ -24,14 +24,14 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/50 dark:to-blue-950/50">
+        <section className="w-full py-16 md:py-24 lg:py-32 bg-background">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-1 items-center text-center">
               <div className="space-y-6">
                 <h1 className="text-4xl font-bold tracking-tighter text-primary sm:text-5xl md:text-6xl font-headline">
                   Gramin Job Connect
                 </h1>
-                <p className="max-w-[600px] mx-auto text-muted-foreground md:text-xl">
+                <p className="max-w-[700px] mx-auto text-muted-foreground md:text-xl">
                   Empowering Rural Talent with Opportunities. Millions of rural youth have skills but lack access to jobs. We connect them directly with opportunities.
                 </p>
                 <div className="flex flex-col gap-4 min-[400px]:flex-row justify-center">
@@ -40,70 +40,44 @@ export default function Home() {
                       <Briefcase className="mr-2 h-5 w-5" /> Find Jobs
                     </Button>
                   </Link>
-                  <Link href="/jobs">
+                  <Link href="#">
                     <Button size="lg" variant="secondary" className="w-full min-[400px]:w-auto">
                       Hire Talent
                     </Button>
                   </Link>
-                </div>
-                 <div className="flex items-center gap-4 pt-4 justify-center">
-                    <Button variant="ghost" className="flex items-center gap-2">
-                        <Languages className="h-5 w-5" />
-                        <span>English / हिन्दी</span>
-                    </Button>
-                     <Button variant="ghost" className="flex items-center gap-2">
-                        <Bot className="h-5 w-5" />
-                        <span>AI Assistant</span>
-                    </Button>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="w-full py-12 md:py-20 bg-muted/20">
-            <div className="container px-4 md:px-6">
-                <div className="grid gap-6 md:grid-cols-3">
-                    <StatsCard title="Jobs Posted" value="10,245" icon={Briefcase} description="+20% this month" />
-                    <StatsCard title="Candidates Registered" value="50,890" icon={Users} description="+15% this month" />
-                    <StatsCard title="Successful Connections" value="4,500+" icon={UserPlus} description="Connecting talent to opportunity" />
-                </div>
-            </div>
-        </section>
-
-
         {/* Key Features Section */}
-        <section className="w-full py-12 md:py-20">
+        <section className="w-full py-12 md:py-20 bg-muted/50">
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">Why Gramin Job Connect?</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {keyFeatures.map((feature, index) => (
-                <div key={feature.title} className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300">
-                  <Card className="h-full border-0 bg-card/80 backdrop-blur-sm group-hover:-translate-y-2 transition-transform duration-300">
-                    <CardContent className="p-8 text-center flex flex-col items-center">
-                        <div className="p-4 bg-primary/10 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
-                            <feature.icon className="h-8 w-8 text-primary" />
-                        </div>
-                        <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                        <p className="text-muted-foreground flex-grow">{feature.description}</p>
-                    </CardContent>
-                  </Card>
-                </div>
+              {keyFeatures.map((feature) => (
+                <Card key={feature.title} className="text-center flex flex-col items-center p-6 border-0 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all">
+                  <div className="p-4 bg-primary/10 rounded-full mb-4">
+                      <feature.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl mb-2">{feature.title}</CardTitle>
+                  <CardDescription className="flex-grow">{feature.description}</CardDescription>
+                </Card>
               ))}
             </div>
           </div>
         </section>
 
          {/* Women Empowerment Section */}
-        <section id="women-empowerment" className="w-full py-12 md:py-20 bg-muted/20">
+        <section id="women-empowerment" className="w-full py-12 md:py-20 bg-background">
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">Opportunities for Women</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {womenEmpowermentJobs.map((job) => (
                 <Link href="/jobs" key={job.title}>
-                    <Card className="group overflow-hidden h-full shadow-lg hover:shadow-xl hover:-translate-y-2 transition-transform duration-300 flex items-center justify-center p-6">
-                        <CardTitle className="text-center">{job.title}</CardTitle>
+                    <Card className="group overflow-hidden h-full shadow-lg hover:shadow-xl hover:-translate-y-2 transition-transform duration-300 flex items-center justify-center p-6 bg-secondary/50">
+                        <CardTitle className="text-center text-secondary-foreground">{job.title}</CardTitle>
                     </Card>
                 </Link>
               ))}
@@ -112,7 +86,7 @@ export default function Home() {
         </section>
         
         {/* Login/Register Section */}
-        <section className="w-full py-12 md:py-20">
+        <section className="w-full py-12 md:py-20 bg-muted/50">
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter text-center mb-4 font-headline">Join Our Platform</h2>
             <p className="max-w-xl mx-auto text-center text-muted-foreground mb-12">Whether you are looking for a job or hiring, get started in just a few clicks.</p>
@@ -143,7 +117,7 @@ export default function Home() {
         <div className="container py-8 px-4 md:px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="text-center md:text-left">
-                  <p className="font-bold">Gramin Job Connect</p>
+                  <p className="font-bold text-lg">Gramin Job Connect</p>
                   <p className="text-sm text-primary-foreground/80">Built with ❤️ for Gramin Bharat.</p>
               </div>
               <div className="flex gap-6">
