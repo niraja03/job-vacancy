@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -83,7 +83,6 @@ export default function ProfilePage() {
     <div className="container mx-auto py-8 px-4">
       <header className="mb-8 flex flex-col items-center text-center">
         <Avatar className="h-24 w-24 mb-4 border-4 border-primary/20">
-          <AvatarImage src="https://placehold.co/100x100.png" alt="User Avatar" />
           <AvatarFallback className="text-3xl bg-muted">{getInitials(watchedName)}</AvatarFallback>
         </Avatar>
         <h1 className="text-4xl font-bold tracking-tight text-primary font-headline">{watchedName}</h1>

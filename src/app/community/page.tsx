@@ -60,7 +60,6 @@ export default function CommunityPage() {
             <Card key={post.id} className="overflow-hidden">
               <CardHeader className="flex flex-row items-start gap-4 p-4 bg-muted/50">
                 <Avatar>
-                  <AvatarImage src={`https://placehold.co/40x40.png?text=${post.avatar}`} />
                   <AvatarFallback>{post.avatar}</AvatarFallback>
                 </Avatar>
                 <div className="w-full">

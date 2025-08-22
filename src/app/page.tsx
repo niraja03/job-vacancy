@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { Briefcase, BookOpen, Users, MessageSquare, Award, ThumbsUp, MapPin, Building, IndianRupee, Verified, Bot, Languages, Bell, UserPlus, LogIn, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { StatsCard } from "@/components/stats-card";
 
 const keyFeatures = [
@@ -14,10 +13,10 @@ const keyFeatures = [
 ];
 
 const womenEmpowermentJobs = [
-    { title: "Stitching & Tailoring", image: "https://placehold.co/600x400.png", dataAiHint: "woman stitching clothes" },
-    { title: "Self-Help Group (SHG) Products", image: "https://placehold.co/600x400.png", dataAiHint: "women self help group" },
-    { title: "Teaching & Anganwadi", image: "https://placehold.co/600x400.png", dataAiHint: "woman teaching children" },
-    { title: "Dairy & Livestock Farming", image: "https://placehold.co/600x400.png", dataAiHint: "woman with cow" },
+    { title: "Stitching & Tailoring" },
+    { title: "Self-Help Group (SHG) Products" },
+    { title: "Teaching & Anganwadi" },
+    { title: "Dairy & Livestock Farming" },
 ]
 
 export default function Home() {
@@ -27,15 +26,15 @@ export default function Home() {
         {/* Hero Section */}
         <section className="w-full py-20 md:py-32 lg:py-40 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/50 dark:to-blue-950/50">
           <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
+            <div className="grid gap-6 lg:grid-cols-1 items-center text-center">
               <div className="space-y-6">
                 <h1 className="text-4xl font-bold tracking-tighter text-primary sm:text-5xl md:text-6xl font-headline">
                   Gramin Job Connect
                 </h1>
-                <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                <p className="max-w-[600px] mx-auto text-muted-foreground md:text-xl">
                   Empowering Rural Talent with Opportunities. Millions of rural youth have skills but lack access to jobs. We connect them directly with opportunities.
                 </p>
-                <div className="flex flex-col gap-4 min-[400px]:flex-row">
+                <div className="flex flex-col gap-4 min-[400px]:flex-row justify-center">
                   <Link href="/jobs">
                     <Button size="lg" className="w-full min-[400px]:w-auto">
                       <Briefcase className="mr-2 h-5 w-5" /> Find Jobs
@@ -47,7 +46,7 @@ export default function Home() {
                     </Button>
                   </Link>
                 </div>
-                 <div className="flex items-center gap-4 pt-4">
+                 <div className="flex items-center gap-4 pt-4 justify-center">
                     <Button variant="ghost" className="flex items-center gap-2">
                         <Languages className="h-5 w-5" />
                         <span>English / हिन्दी</span>
@@ -58,14 +57,6 @@ export default function Home() {
                     </Button>
                 </div>
               </div>
-              <Image
-                src="https://placehold.co/600x400.png"
-                width="600"
-                height="400"
-                alt="Hero"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full shadow-2xl"
-                data-ai-hint="happy rural workers laptop"
-              />
             </div>
           </div>
         </section>
@@ -109,18 +100,8 @@ export default function Home() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {womenEmpowermentJobs.map((job) => (
                 <Link href="/jobs" key={job.title}>
-                    <Card className="group overflow-hidden h-full shadow-lg hover:shadow-xl hover:-translate-y-2 transition-transform duration-300">
-                        <Image
-                        src={job.image}
-                        width="600"
-                        height="400"
-                        alt={job.title}
-                        className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        data-ai-hint={job.dataAiHint}
-                        />
-                        <CardHeader>
-                            <CardTitle>{job.title}</CardTitle>
-                        </CardHeader>
+                    <Card className="group overflow-hidden h-full shadow-lg hover:shadow-xl hover:-translate-y-2 transition-transform duration-300 flex items-center justify-center p-6">
+                        <CardTitle className="text-center">{job.title}</CardTitle>
                     </Card>
                 </Link>
               ))}

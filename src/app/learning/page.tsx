@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, IndianRupee } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 const learningModules = [
@@ -10,8 +9,6 @@ const learningModules = [
     category: "Computers", 
     type: "video", 
     duration: "15 min", 
-    image: "https://placehold.co/600x400.png", 
-    dataAiHint: "computer user",
     icon: Laptop
   },
   { 
@@ -19,8 +16,6 @@ const learningModules = [
     category: "Agriculture", 
     type: "pdf", 
     duration: "10 pages", 
-    image: "https://placehold.co/600x400.png", 
-    dataAiHint: "modern farming",
     icon: Tractor
   },
   { 
@@ -28,8 +23,6 @@ const learningModules = [
     category: "Career", 
     type: "video", 
     duration: "20 min", 
-    image: "https://placehold.co/600x400.png", 
-    dataAiHint: "job interview",
     icon: Briefcase
   },
   { 
@@ -37,8 +30,6 @@ const learningModules = [
     category: "Finance", 
     type: "pdf", 
     duration: "5 pages", 
-    image: "https://placehold.co/600x400.png", 
-    dataAiHint: "digital payment",
     icon: IndianRupee
   },
 ];
@@ -68,19 +59,20 @@ export default function LearningPage() {
             {learningModules.map((module) => (
                <Link href="#" key={module.title}>
                 <Card className="group overflow-hidden h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                    <CardHeader className="p-0 relative">
-                    <Image src={module.image} alt={module.title} width={600} height={400} className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-105" data-ai-hint={module.dataAiHint} />
-                    <div className="absolute bottom-2 right-2 bg-background/80 backdrop-blur-sm text-foreground text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
-                        {module.type === 'video' ? <Video className="h-3 w-3" /> : <BookOpen className="h-3 w-3" />}
-                        <span>{module.duration}</span>
-                    </div>
+                    <CardHeader className="p-4">
+                        <div className="flex justify-between items-start">
+                             <p className="text-xs font-bold uppercase text-primary">{module.category}</p>
+                            <div className="bg-background/80 backdrop-blur-sm text-foreground text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
+                                {module.type === 'video' ? <Video className="h-3 w-3" /> : <BookOpen className="h-3 w-3" />}
+                                <span>{module.duration}</span>
+                            </div>
+                        </div>
                     </CardHeader>
                     <CardContent className="p-4 flex-grow">
-                        <div className="flex items-center gap-2 mb-2">
-                             <module.icon className="h-5 w-5 text-accent" />
-                             <p className="text-xs font-bold uppercase text-primary">{module.category}</p>
+                        <div className="flex items-start gap-4">
+                             <module.icon className="h-8 w-8 text-accent mt-1" />
+                            <CardTitle className="text-lg font-headline leading-tight flex-grow">{module.title}</CardTitle>
                         </div>
-                        <CardTitle className="text-lg mt-1 font-headline leading-tight">{module.title}</CardTitle>
                     </CardContent>
                 </Card>
               </Link>
