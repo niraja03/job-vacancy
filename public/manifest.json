@@ -1,0 +1,21 @@
+{
+  "name": "Gramin Jobs Connect",
+  "short_name": "Jobs Connect",
+  "description": "Connecting rural India with jobs and opportunities.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F5F5DC",
+  "theme_color": "#6B8E23",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
