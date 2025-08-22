@@ -23,6 +23,16 @@ const skillDemandData = [
   { name: 'Teaching', value: 189, fill: "hsl(var(--chart-5))" },
 ];
 
+const jobsByRegionData = [
+  { region: 'Pune', jobs: 1200 },
+  { region: 'Mumbai', jobs: 950 },
+  { region: 'Nagpur', jobs: 700 },
+  { region: 'Nashik', jobs: 550 },
+  { region: 'Satara', jobs: 400 },
+  { region: 'Aurangabad', jobs: 300 },
+];
+
+
 const chartConfig = {
   views: {
     label: "Page Views",
@@ -35,6 +45,10 @@ const chartConfig = {
     label: "Mobile",
     color: "hsl(var(--chart-2))",
   },
+  jobs: {
+    label: "Jobs",
+    color: "hsl(var(--chart-1))",
+  }
 };
 
 export default function AnalyticsPage() {
@@ -88,12 +102,20 @@ export default function AnalyticsPage() {
         <Card className="lg:col-span-3">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <BarChart className="h-6 w-6" /> Heatmap of Jobs (Placeholder)
+              <BarChart className="h-6 w-6" /> Jobs by Region
             </CardTitle>
              <CardDescription>Job concentration across different regions.</CardDescription>
           </CardHeader>
-          <CardContent className="flex items-center justify-center bg-muted/50 h-80 rounded-lg">
-            <p className="text-muted-foreground">Map visualization would be displayed here.</p>
+          <CardContent>
+            <ChartContainer config={chartConfig} className="h-[350px] w-full">
+               <RechartsBarChart data={jobsByRegionData}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis dataKey="region" tickLine={false} axisLine={false} tickMargin={8} />
+                  <YAxis />
+                  <RechartsTooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="jobs" fill="hsl(var(--chart-1))" radius={4} />
+               </RechartsBarChart>
+            </ChartContainer>
           </CardContent>
         </Card>
       </div>
