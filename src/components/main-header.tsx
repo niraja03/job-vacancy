@@ -16,6 +16,7 @@ export function MainHeader() {
   const navItems = [
     { href: "/jobs", label: "Jobs", icon: Briefcase },
     { href: "/resume-builder", label: "Resume Builder", icon: Sparkles },
+    { href: "/smart-recommender", label: "Smart Recommender", icon: Sparkles },
     { href: "/community", label: "Community", icon: Users },
     { href: "/learning", label: "Learning", icon: GraduationCap },
     { href: "/analytics", label: "Analytics", icon: BarChart },
