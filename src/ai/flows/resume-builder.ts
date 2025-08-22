@@ -1,4 +1,4 @@
-// src/ai/flows/resume-builder.ts
+
 'use server';
 /**
  * @fileOverview A resume builder AI agent.
@@ -24,4 +24,59 @@ const ResumeBuilderInputSchema = z.object({
   objective: z
     .string()
     .optional()
-    .describe('The job seeker
+    .describe("The job seeker's career objective."),
+});
+export type ResumeBuilderInput = z.infer<typeof ResumeBuilderInputSchema>;
+
+const ResumeBuilderOutputSchema = z.object({
+  resumeContent: z
+    .string()
+    .describe('The full, formatted resume content as a single string.'),
+});
+export type ResumeBuilderOutput = z.infer<typeof ResumeBuilderOutputSchema>;
+
+export async function buildResume(
+  input: ResumeBuilderInput
+): Promise<ResumeBuilderOutput> {
+  return buildResumeFlow(input);
+}
+
+const prompt = ai.definePrompt({
+  name: 'buildResumePrompt',
+  input: {schema: ResumeBuilderInputSchema},
+  output: {schema: ResumeBuilderOutputSchema},
+  prompt: `You are a professional resume writer. Create a well-formatted, professional resume based on the following information. The output should be a single string.
+
+Name: {{{name}}}
+Contact: {{{contactInformation}}}
+{{#if objective}}
+Objective: {{{objective}}}
+{{/if}}
+
+---
+SKILLS
+---
+{{{skills}}}
+
+---
+EXPERIENCE
+---
+{{{experience}}}
+
+---
+EDUCATION
+---
+{{{education}}}`,
+});
+
+const buildResumeFlow = ai.defineFlow(
+  {
+    name: 'buildResumeFlow',
+    inputSchema: ResumeBuilderInputSchema,
+    outputSchema: ResumeBuilderOutputSchema,
+  },
+  async input => {
+    const {output} = await prompt(input);
+    return output!;
+  }
+);
