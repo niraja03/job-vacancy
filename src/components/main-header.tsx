@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import {
   Sparkles,
   BarChart,
   CircleUser,
+  Bell,
 } from "lucide-react";
 import { Logo } from "./logo";
 
@@ -77,6 +79,9 @@ export function MainHeader() {
         </Sheet>
         
         <div className="flex flex-1 items-center justify-end space-x-4">
+          <Button variant="ghost" size="icon" aria-label="Notifications">
+             <Bell className="h-6 w-6" />
+          </Button>
           <Link href="/profile">
             <Button variant="ghost" size="icon" aria-label="Profile">
               <CircleUser className="h-6 w-6" />

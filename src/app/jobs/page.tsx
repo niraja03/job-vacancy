@@ -1,3 +1,4 @@
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Mic, Search } from "lucide-react";
@@ -68,6 +69,9 @@ export default function JobsPage() {
               <SelectItem value="teaching">Teaching</SelectItem>
               <SelectItem value="healthcare">Healthcare</SelectItem>
               <SelectItem value="construction">Construction</SelectItem>
+              <SelectItem value="it">IT</SelectItem>
+              <SelectItem value="government">Government</SelectItem>
+              <SelectItem value="seasonal">Seasonal</SelectItem>
             </SelectContent>
           </Select>
           <Select>
