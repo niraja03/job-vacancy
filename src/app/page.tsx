@@ -24,7 +24,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-background">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full py-20 md:py-32 lg:py-40 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/50 dark:to-blue-950/50">
+        <section className="w-full py-16 md:py-24 lg:py-32 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/50 dark:to-blue-950/50">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-1 items-center text-center">
               <div className="space-y-6">
@@ -62,7 +62,7 @@ export default function Home() {
         </section>
 
         {/* Stats Section */}
-        <section className="w-full py-12 md:py-24 bg-muted/20">
+        <section className="w-full py-12 md:py-20 bg-muted/20">
             <div className="container px-4 md:px-6">
                 <div className="grid gap-6 md:grid-cols-3">
                     <StatsCard title="Jobs Posted" value="10,245" icon={Briefcase} description="+20% this month" />
@@ -74,27 +74,29 @@ export default function Home() {
 
 
         {/* Key Features Section */}
-        <section className="w-full py-12 md:py-24">
+        <section className="w-full py-12 md:py-20">
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">Why Gramin Job Connect?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {keyFeatures.map((feature) => (
-                <Card key={feature.title} className="text-center p-6 border-0 shadow-lg hover:shadow-xl hover:-translate-y-2 transition-transform duration-300">
-                    <div className="flex justify-center items-center mb-4">
-                        <div className="p-4 bg-primary/10 rounded-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {keyFeatures.map((feature, index) => (
+                <div key={feature.title} className="relative group overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300">
+                  <Card className="h-full border-0 bg-card/80 backdrop-blur-sm group-hover:-translate-y-2 transition-transform duration-300">
+                    <CardContent className="p-8 text-center flex flex-col items-center">
+                        <div className="p-4 bg-primary/10 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
                             <feature.icon className="h-8 w-8 text-primary" />
                         </div>
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
-                </Card>
+                        <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                        <p className="text-muted-foreground flex-grow">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
          {/* Women Empowerment Section */}
-        <section id="women-empowerment" className="w-full py-12 md:py-24 bg-muted/20">
+        <section id="women-empowerment" className="w-full py-12 md:py-20 bg-muted/20">
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 font-headline">Opportunities for Women</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -110,7 +112,7 @@ export default function Home() {
         </section>
         
         {/* Login/Register Section */}
-        <section className="w-full py-12 md:py-24">
+        <section className="w-full py-12 md:py-20">
           <div className="container px-4 md:px-6">
             <h2 className="text-3xl font-bold tracking-tighter text-center mb-4 font-headline">Join Our Platform</h2>
             <p className="max-w-xl mx-auto text-center text-muted-foreground mb-12">Whether you are looking for a job or hiring, get started in just a few clicks.</p>
