@@ -9,8 +9,14 @@ const dummyJobs: Job[] = [
   { id: 2, title: "Data Entry Operator", company: "Gramin Suvidha Kendra", location: "Nashik, Maharashtra", type: "Part-time", salary: "₹8,000 per month", description: "Basic computer knowledge required. Work involves entering data from government forms into our system. Flexible hours." },
   { id: 3, title: "Healthcare Assistant", company: "Village Clinic", location: "Satara, Maharashtra", type: "Full-time", isVerified: true, description: "Assist doctors and nurses with daily tasks. Training will be provided. A compassionate and caring attitude is a must." },
   { id: 4, title: "Primary School Teacher", company: "Sarvodaya School", location: "Aurangabad, Maharashtra", type: "Full-time", isVerified: true, salary: "₹12,000 per month", description: "Looking for a teacher for classes 1-4. D.Ed or B.Ed preferred. Passion for teaching young children is essential." },
-  { id: 5, title: "Construction Worker", company: "Local Builders", location: "Pune, Maharashtra", type: "Contract", description: "General labor needed for a new housing project. Daily wages. Immediate start." },
-  { id: 6, title: "Retail Sales Associate", company: "Kisan Retail Store", location: "Nashik, Maharashtra", type: "Full-time", isVerified: true, description: "Customer service and sales role in a busy retail environment. Previous experience is a plus." },
+  { id: 5, title: "Construction Worker", company: "Local Builders", location: "Mumbai, Maharashtra", type: "Contract", description: "General labor needed for a new housing project. Daily wages. Immediate start." },
+  { id: 6, title: "Retail Sales Associate", company: "Kisan Retail Store", location: "Nagpur, Maharashtra", type: "Full-time", isVerified: true, description: "Customer service and sales role in a busy retail environment. Previous experience is a plus." },
+];
+
+const maharashtraCities = [
+  "Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad", "Solapur", "Amravati", 
+  "Nanded", "Kolhapur", "Thane", "Akola", "Latur", "Dhule", "Jalgaon",
+  "Sangli", "Satara", "Wardha", "Yavatmal", "Parbhani", "Chandrapur", "Bhandara"
 ];
 
 export default function JobsPage() {
@@ -21,8 +27,8 @@ export default function JobsPage() {
         <p className="mt-2 text-lg text-muted-foreground">Search thousands of jobs from verified employers in your area.</p>
       </header>
 
-      <div className="sticky top-16 bg-background/95 backdrop-blur-sm z-10 py-4 mb-8">
-        <div className="flex flex-col md:flex-row gap-4">
+      <div className="sticky top-16 bg-background/95 backdrop-blur-sm z-10 py-4 mb-8 -mx-4 px-4 border-b">
+        <div className="flex flex-col md:flex-row gap-4 max-w-7xl mx-auto">
           <div className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input placeholder="Search for jobs like 'teacher' or 'driver'..." className="pl-10 h-12 text-base" />
@@ -32,7 +38,7 @@ export default function JobsPage() {
           </div>
           <Button size="lg" className="h-12 text-base">Find Jobs</Button>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 max-w-7xl mx-auto">
           <Select>
             <SelectTrigger>
               <SelectValue placeholder="Job Type" />
@@ -48,10 +54,9 @@ export default function JobsPage() {
               <SelectValue placeholder="Location" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="pune">Pune</SelectItem>
-              <SelectItem value="nashik">Nashik</SelectItem>
-              <SelectItem value="satara">Satara</SelectItem>
-              <SelectItem value="aurangabad">Aurangabad</SelectItem>
+                {maharashtraCities.map(city => (
+                    <SelectItem key={city} value={city.toLowerCase()}>{city}</SelectItem>
+                ))}
             </SelectContent>
           </Select>
           <Select>
