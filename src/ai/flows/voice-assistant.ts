@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -38,6 +39,7 @@ export async function voiceAssistant(
 
 const voiceAssistantPrompt = ai.definePrompt({
   name: 'voiceAssistantPrompt',
+  model: 'googleai/gemini-1.5-flash-latest',
   input: {schema: z.object({query: z.string()})},
   output: {schema: z.string().describe('Response to user query.')},
   prompt: `You are a helpful voice assistant that guides users to find jobs.
@@ -48,6 +50,7 @@ Query: {{{query}}}`,
 
 const translatePrompt = ai.definePrompt({
   name: 'translatePrompt',
+  model: 'googleai/gemini-1.5-flash-latest',
   input: {
     schema: z.object({text: z.string(), language: z.string()}),
   },
