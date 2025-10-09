@@ -10,6 +10,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import wav from 'wav';
 
 const VoiceAssistantInputSchema = z.object({
   query: z.string().describe('The user query in text format.'),
@@ -60,24 +61,25 @@ async function toWav(
   rate = 24000,
   sampleWidth = 2
 ): Promise<string> {
-  // This is a simplified header writer. A robust library is recommended for production.
-  const header = Buffer.alloc(44);
-  header.write('RIFF', 0);
-  header.writeUInt32LE(36 + pcmData.length, 4);
-  header.write('WAVE', 8);
-  header.write('fmt ', 12);
-  header.writeUInt32LE(16, 16); // Sub-chunk 1 Size
-  header.writeUInt16LE(1, 20); // Audio Format (1 for PCM)
-  header.writeUInt16LE(channels, 22);
-  header.writeUInt32LE(rate, 24);
-  header.writeUInt32LE(rate * channels * sampleWidth, 28); // Byte Rate
-  header.writeUInt16LE(channels * sampleWidth, 32); // Block Align
-  header.writeUInt16LE(sampleWidth * 8, 34); // Bits Per Sample
-  header.write('data', 36);
-  header.writeUInt32LE(pcmData.length, 40);
+  return new Promise((resolve, reject) => {
+    const writer = new wav.Writer({
+      channels,
+      sampleRate: rate,
+      bitDepth: sampleWidth * 8,
+    });
 
-  const wavData = Buffer.concat([header, pcmData]);
-  return wavData.toString('base64');
+    let bufs: Buffer[] = [];
+    writer.on('error', reject);
+    writer.on('data', function (d) {
+      bufs.push(d);
+    });
+    writer.on('end', function () {
+      resolve(Buffer.concat(bufs).toString('base64'));
+    });
+
+    writer.write(pcmData);
+    writer.end();
+  });
 }
 
 const voiceAssistantFlow = ai.defineFlow(
