@@ -1,6 +1,10 @@
 
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, IndianRupee, HeartPulse, GraduationCap, Building, Shield, LucideIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -168,32 +172,42 @@ const certificationLinks = [
     { name: "Swayam", url: "https://swayam.gov.in/", description: "Free online courses by Government of India." },
 ]
 
-const LearningModuleCard = ({ module }: { module: LearningModule }) => (
-  <Link href="#">
-    <Card className="group overflow-hidden h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-      <CardHeader className="p-4">
-        <div className="flex justify-between items-start">
-          <p className="text-xs font-bold uppercase text-primary">{module.category}</p>
-          <div className="bg-background/80 backdrop-blur-sm text-foreground text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
-            {module.type === 'video' ? <Video className="h-3 w-3" /> : <BookOpen className="h-3 w-3" />}
-            <span>{module.duration}</span>
-          </div>
+const LearningModuleCard = ({ module, onClick }: { module: LearningModule, onClick: () => void }) => (
+  <Card 
+    className="group overflow-hidden h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+    onClick={onClick}
+  >
+    <CardHeader className="p-4">
+      <div className="flex justify-between items-start">
+        <p className="text-xs font-bold uppercase text-primary">{module.category}</p>
+        <div className="bg-background/80 backdrop-blur-sm text-foreground text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
+          {module.type === 'video' ? <Video className="h-3 w-3" /> : <BookOpen className="h-3 w-3" />}
+          <span>{module.duration}</span>
         </div>
-      </CardHeader>
-      <CardContent className="p-4 flex-grow flex flex-col">
-        <div className="flex items-start gap-4 mb-2">
-          <module.icon className="h-8 w-8 text-accent mt-1 shrink-0" />
-          <CardTitle className="text-lg font-headline leading-tight flex-grow">{module.title}</CardTitle>
-        </div>
-        <CardDescription className="text-sm">{module.description}</CardDescription>
-      </CardContent>
-    </Card>
-  </Link>
+      </div>
+    </CardHeader>
+    <CardContent className="p-4 flex-grow flex flex-col">
+      <div className="flex items-start gap-4 mb-2">
+        <module.icon className="h-8 w-8 text-accent mt-1 shrink-0" />
+        <CardTitle className="text-lg font-headline leading-tight flex-grow">{module.title}</CardTitle>
+      </div>
+      <CardDescription className="text-sm">{module.description}</CardDescription>
+    </CardContent>
+  </Card>
 );
 
 
 export default function LearningPage() {
   const categories = Object.keys(learningContent);
+  const [selectedModule, setSelectedModule] = useState<LearningModule | null>(null);
+
+  const handleModuleClick = (module: LearningModule) => {
+    setSelectedModule(module);
+  };
+
+  const handleDialogClose = () => {
+    setSelectedModule(null);
+  };
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -218,7 +232,7 @@ export default function LearningPage() {
                     <TabsContent key={category} value={category}>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {learningContent[category].map((module) => (
-                                <LearningModuleCard key={module.title} module={module} />
+                                <LearningModuleCard key={module.title} module={module} onClick={() => handleModuleClick(module)} />
                             ))}
                         </div>
                     </TabsContent>
@@ -244,6 +258,30 @@ export default function LearningPage() {
             </div>
         </TabsContent>
       </Tabs>
+      
+      {selectedModule && (
+        <Dialog open={!!selectedModule} onOpenChange={handleDialogClose}>
+            <DialogContent className="max-w-3xl">
+                <DialogHeader>
+                    <DialogTitle>{selectedModule.title}</DialogTitle>
+                    <DialogDescription>{selectedModule.description}</DialogDescription>
+                </DialogHeader>
+                <div className="aspect-video rounded-lg overflow-hidden bg-muted mt-4">
+                     <iframe 
+                        className="w-full h-full" 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" // Placeholder video
+                        title="YouTube video player" 
+                        frameBorder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowFullScreen>
+                    </iframe>
+                </div>
+            </DialogContent>
+        </Dialog>
+      )}
+
     </div>
   );
 }
+
+    
