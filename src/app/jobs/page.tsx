@@ -39,7 +39,7 @@ export default function JobsPage() {
           </div>
           <Button size="lg" className="h-12 text-base">Find Jobs</Button>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 max-w-7xl mx-auto">
           <Select>
             <SelectTrigger>
               <SelectValue placeholder="Job Type" />
@@ -72,16 +72,6 @@ export default function JobsPage() {
               <SelectItem value="it">IT</SelectItem>
               <SelectItem value="government">Government</SelectItem>
               <SelectItem value="seasonal">Seasonal</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Salary Range" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="0-10000">Below ₹10,000</SelectItem>
-              <SelectItem value="10000-20000">₹10,000 - ₹20,000</SelectItem>
-              <SelectItem value="20000+">Above ₹20,000</SelectItem>
             </SelectContent>
           </Select>
         </div>
