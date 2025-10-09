@@ -1,10 +1,14 @@
+"use client";
+
+import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { MessageSquare, ThumbsUp } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
-const communityPosts = [
+const initialCommunityPosts = [
   {
     id: 1,
     author: "Ramesh Kumar",
@@ -35,6 +39,38 @@ const communityPosts = [
 ];
 
 export default function CommunityPage() {
+  const [posts, setPosts] = useState(initialCommunityPosts);
+  const [newPostContent, setNewPostContent] = useState("");
+  const { toast } = useToast();
+
+  const handlePost = () => {
+    if (newPostContent.trim() === "") {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Post content cannot be empty.",
+      });
+      return;
+    }
+
+    const newPost = {
+      id: posts.length + 1,
+      author: "Jhon Doe", // In a real app, this would be the logged-in user
+      avatar: "JD",
+      content: newPostContent,
+      likes: 0,
+      comments: 0,
+      timestamp: "Just now",
+    };
+
+    setPosts([newPost, ...posts]);
+    setNewPostContent("");
+    toast({
+        title: "Posted!",
+        description: "Your post has been added to the community board.",
+    })
+  };
+
   return (
     <div className="container mx-auto py-8 px-4">
       <header className="mb-8 text-center">
@@ -48,15 +84,20 @@ export default function CommunityPage() {
             <CardTitle>Create a new post</CardTitle>
           </CardHeader>
           <CardContent>
-            <Textarea placeholder="What's on your mind? Share something with the community..." className="min-h-[100px]" />
+            <Textarea
+              placeholder="What's on your mind? Share something with the community..."
+              className="min-h-[100px]"
+              value={newPostContent}
+              onChange={(e) => setNewPostContent(e.target.value)}
+            />
           </CardContent>
           <CardFooter className="flex justify-end">
-            <Button>Post</Button>
+            <Button onClick={handlePost}>Post</Button>
           </CardFooter>
         </Card>
 
         <div className="space-y-6">
-          {communityPosts.map((post) => (
+          {posts.map((post) => (
             <Card key={post.id} className="overflow-hidden">
               <CardHeader className="flex flex-row items-start gap-4 p-4 bg-muted/50">
                 <Avatar>
