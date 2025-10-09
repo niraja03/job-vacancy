@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, IndianRupee, HeartPulse, GraduationCap, Building, Shield, LucideIcon } from "lucide-react";
+import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, HeartPulse, GraduationCap, Building, Shield, LucideIcon } from "lucide-react";
 import Link from "next/link";
 
 // Dummy icons for new categories
@@ -33,6 +33,7 @@ type LearningModule = {
   type: 'video' | 'pdf';
   duration: string;
   icon: LucideIcon;
+  videoId: string;
 };
 
 const learningContent: Record<string, LearningModule[]> = {
@@ -43,7 +44,8 @@ const learningContent: Record<string, LearningModule[]> = {
       category: "Common Learning", 
       type: "video", 
       duration: "25 min", 
-      icon: GraduationCap 
+      icon: GraduationCap,
+      videoId: "67zsqEvE7-0"
     },
     { 
       title: "Digital Literacy", 
@@ -51,7 +53,8 @@ const learningContent: Record<string, LearningModule[]> = {
       category: "Common Learning", 
       type: "video", 
       duration: "30 min", 
-      icon: Laptop
+      icon: Laptop,
+      videoId: "y2kg3MOk1sY"
     },
   ],
   "Teaching": [
@@ -62,6 +65,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "18 min",
       icon: Briefcase,
+      videoId: "6eRwgM2Pa4o"
     },
     {
       title: "Digital Teaching Tools",
@@ -70,6 +74,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "22 min",
       icon: Laptop,
+      videoId: "Plse2FOkV4Q"
     },
   ],
   "Healthcare": [
@@ -80,6 +85,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "25 min",
       icon: HeartPulse,
+      videoId: "plse2fOKV4Q"
     },
     {
       title: "Patient Communication Skills",
@@ -88,6 +94,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "15 min",
       icon: Users,
+      videoId: "qkKxDXb2C-k"
     },
   ],
   "Farming": [
@@ -98,6 +105,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "28 min",
       icon: Tractor,
+      videoId: "TdyMxJcT7a4"
     },
     {
       title: "Soil Health & Fertilizer Management",
@@ -106,6 +114,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "19 min",
       icon: BookOpen,
+      videoId: "lnD8E6Q1Ia0"
     },
   ],
   "IT": [
@@ -116,6 +125,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "35 min",
       icon: Laptop,
+      videoId: "rtnPIb6Dszk"
     },
     {
       title: "Introduction to Programming",
@@ -124,6 +134,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "60 min",
       icon: Code,
+      videoId: "kqtD5dpn9C8"
     },
   ],
   "Construction": [
@@ -134,6 +145,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "20 min",
       icon: Shield,
+      videoId: "Dhxf5mm7g1g"
     },
     {
       title: "Blueprint Reading Basics",
@@ -142,6 +154,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "30 min",
       icon: BookOpen,
+      videoId: "DSuP4YkaJ40"
     },
   ],
   "Government": [
@@ -152,6 +165,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "45 min",
       icon: GraduationCap,
+      videoId: "6eRwgM2Pa4o"
     },
     {
       title: "Basic English Grammar & GK Preparation",
@@ -160,6 +174,7 @@ const learningContent: Record<string, LearningModule[]> = {
       type: "video",
       duration: "50 min",
       icon: BookOpen,
+      videoId: "67zsqEvE7-0"
     },
   ],
 };
@@ -269,7 +284,7 @@ export default function LearningPage() {
                 <div className="aspect-video rounded-lg overflow-hidden bg-muted mt-4">
                      <iframe 
                         className="w-full h-full" 
-                        src="https://www.youtube.com/embed/dQw4w9WgXcQ" // Placeholder video
+                        src={`https://www.youtube.com/embed/${selectedModule.videoId}`}
                         title="YouTube video player" 
                         frameBorder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -283,5 +298,3 @@ export default function LearningPage() {
     </div>
   );
 }
-
-    
