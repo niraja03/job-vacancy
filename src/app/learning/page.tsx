@@ -38,21 +38,21 @@ type LearningModule = {
 
 const learningContent: Record<string, LearningModule[]> = {
     "Common": [
-        { 
-          title: "Basic English Communication", 
+        {
+          title: "Basic English Communication",
           description: "Enhance your English communication skills for everyday and professional interactions.",
-          category: "Common Learning", 
-          type: "video", 
-          duration: "25 min", 
+          category: "Common Learning",
+          type: "video",
+          duration: "25 min",
           icon: GraduationCap,
           videoId: "67zsqEvE7-0"
         },
-        { 
-          title: "Digital Literacy", 
+        {
+          title: "Digital Literacy",
           description: "An introductory course on digital literacy, covering essential computer and internet skills.",
-          category: "Common Learning", 
-          type: "video", 
-          duration: "30 min", 
+          category: "Common Learning",
+          type: "video",
+          duration: "30 min",
           icon: Laptop,
           videoId: "y2kg3MOk1sY"
         },
@@ -65,7 +65,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "18 min",
           icon: Briefcase,
-          videoId: "6eRwgM2Pa4o"
+          videoId: "Plse2FOkV4Q"
         },
         {
           title: "Digital Teaching Tools",
@@ -74,7 +74,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "22 min",
           icon: Laptop,
-          videoId: "Plse2FOkV4Q"
+          videoId: "6eRwgM2Pa4o"
         },
       ],
       "Healthcare": [
@@ -85,7 +85,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "25 min",
           icon: HeartPulse,
-          videoId: "plse2fOKV4Q"
+          videoId: "qkKxDXb2C-k"
         },
         {
           title: "Patient Communication Skills",
@@ -94,7 +94,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "15 min",
           icon: Users,
-          videoId: "qkKxDXb2C-k"
+          videoId: "plse2fOKV4Q"
         },
       ],
       "Farming": [
@@ -165,7 +165,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "45 min",
           icon: GraduationCap,
-          videoId: "6eRwgM2Pa4o"
+          videoId: "y2kg3MOk1sY"
         },
         {
           title: "Basic English Grammar & GK Preparation",
@@ -174,7 +174,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "50 min",
           icon: BookOpen,
-          videoId: "67zsqEvE7-0"
+          videoId: "6eRwgM2Pa4o"
         },
       ]
 };
@@ -188,7 +188,7 @@ const certificationLinks = [
 ]
 
 const LearningModuleCard = ({ module, onClick }: { module: LearningModule, onClick: () => void }) => (
-  <Card 
+  <Card
     className="group overflow-hidden h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
     onClick={onClick}
   >
