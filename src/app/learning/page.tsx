@@ -65,7 +65,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "18 min",
           icon: Briefcase,
-          videoId: "Plse2FOkV4Q"
+          videoId: "6eRwgM2Pa4o"
         },
         {
           title: "Digital Teaching Tools",
@@ -74,7 +74,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "22 min",
           icon: Laptop,
-          videoId: "6eRwgM2Pa4o"
+          videoId: "Plse2FOkV4Q"
         },
       ],
       "Healthcare": [
