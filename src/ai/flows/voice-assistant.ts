@@ -10,13 +10,14 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import wav from 'wav';
 
 const VoiceAssistantInputSchema = z.object({
   query: z.string().describe('The user query in text format.'),
   language: z
     .enum(['en', 'hi', 'te', 'mr'])
-    .describe('The language of the user query (en: English, hi: Hindi, te: Telugu, mr: Marathi).')
+    .describe(
+      'The language of the user query (en: English, hi: Hindi, te: Telugu, mr: Marathi).'
+    ),
 });
 
 export type VoiceAssistantInput = z.infer<typeof VoiceAssistantInputSchema>;
@@ -28,18 +29,29 @@ const VoiceAssistantOutputSchema = z.object({
 
 export type VoiceAssistantOutput = z.infer<typeof VoiceAssistantOutputSchema>;
 
-export async function voiceAssistant(input: VoiceAssistantInput): Promise<VoiceAssistantOutput> {
+export async function voiceAssistant(
+  input: VoiceAssistantInput
+): Promise<VoiceAssistantOutput> {
   return voiceAssistantFlow(input);
 }
 
 const voiceAssistantPrompt = ai.definePrompt({
   name: 'voiceAssistantPrompt',
-  input: {schema: VoiceAssistantInputSchema},
+  input: {schema: z.object({query: z.string()})},
   output: {schema: z.string().describe('Response to user query.')},
   prompt: `You are a helpful voice assistant that guides users to find jobs.
-Respond to the user query in {{{language}}} language.
+Respond to the user query.
 
 Query: {{{query}}}`,
+});
+
+const translatePrompt = ai.definePrompt({
+  name: 'translatePrompt',
+  input: {
+    schema: z.object({text: z.string(), language: z.string()}),
+  },
+  output: {schema: z.string()},
+  prompt: `Translate the following text to {{language}}: {{{text}}}`,
 });
 
 async function toWav(
@@ -48,25 +60,24 @@ async function toWav(
   rate = 24000,
   sampleWidth = 2
 ): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const writer = new wav.Writer({
-      channels,
-      sampleRate: rate,
-      bitDepth: sampleWidth * 8,
-    });
+  // This is a simplified header writer. A robust library is recommended for production.
+  const header = Buffer.alloc(44);
+  header.write('RIFF', 0);
+  header.writeUInt32LE(36 + pcmData.length, 4);
+  header.write('WAVE', 8);
+  header.write('fmt ', 12);
+  header.writeUInt32LE(16, 16); // Sub-chunk 1 Size
+  header.writeUInt16LE(1, 20); // Audio Format (1 for PCM)
+  header.writeUInt16LE(channels, 22);
+  header.writeUInt32LE(rate, 24);
+  header.writeUInt32LE(rate * channels * sampleWidth, 28); // Byte Rate
+  header.writeUInt16LE(channels * sampleWidth, 32); // Block Align
+  header.writeUInt16LE(sampleWidth * 8, 34); // Bits Per Sample
+  header.write('data', 36);
+  header.writeUInt32LE(pcmData.length, 40);
 
-    let bufs = [] as any[];
-    writer.on('error', reject);
-    writer.on('data', function (d) {
-      bufs.push(d);
-    });
-    writer.on('end', function () {
-      resolve(Buffer.concat(bufs).toString('base64'));
-    });
-
-    writer.write(pcmData);
-    writer.end();
-  });
+  const wavData = Buffer.concat([header, pcmData]);
+  return wavData.toString('base64');
 }
 
 const voiceAssistantFlow = ai.defineFlow(
@@ -76,23 +87,51 @@ const voiceAssistantFlow = ai.defineFlow(
     outputSchema: VoiceAssistantOutputSchema,
   },
   async input => {
-    const {output: response} = await voiceAssistantPrompt(input);
+    // 1. Get initial response in English
+    const {output: englishResponse} = await voiceAssistantPrompt({
+      query: input.query,
+    });
 
+    if (!englishResponse) {
+      throw new Error('Failed to get a response from the assistant.');
+    }
+
+    let translatedResponse = englishResponse;
+
+    // 2. Translate if the language is not English
+    if (input.language !== 'en') {
+      const languageMap: {[key: string]: string} = {
+        hi: 'Hindi',
+        te: 'Telugu',
+        mr: 'Marathi',
+      };
+      const targetLanguage = languageMap[input.language];
+
+      const {output} = await translatePrompt({
+        text: englishResponse,
+        language: targetLanguage,
+      });
+      if (output) {
+        translatedResponse = output;
+      }
+    }
+
+    // 3. Generate audio from the (potentially translated) response
     const {media} = await ai.generate({
       model: 'googleai/gemini-2.5-flash-preview-tts',
       config: {
         responseModalities: ['AUDIO'],
         speechConfig: {
           voiceConfig: {
-            prebuiltVoiceConfig: {voiceName: 'Algenib'},
+            prebuiltVoiceConfig: {voiceName: 'Algenib'}, // This voice supports multiple languages
           },
         },
       },
-      prompt: response!,
+      prompt: translatedResponse,
     });
 
-    if (!media) {
-      throw new Error('no media returned');
+    if (!media || !media.url) {
+      throw new Error('No media returned from TTS model');
     }
 
     const audioBuffer = Buffer.from(
@@ -102,6 +141,6 @@ const voiceAssistantFlow = ai.defineFlow(
 
     const audio = 'data:audio/wav;base64,' + (await toWav(audioBuffer));
 
-    return {response: response!, audio};
+    return {response: translatedResponse, audio};
   }
 );
