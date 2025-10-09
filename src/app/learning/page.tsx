@@ -85,7 +85,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "25 min",
           icon: HeartPulse,
-          videoId: "qkKxDXb2C-k"
+          videoId: "plse2fOKV4Q"
         },
         {
           title: "Patient Communication Skills",
@@ -94,7 +94,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "15 min",
           icon: Users,
-          videoId: "plse2fOKV4Q"
+          videoId: "qkKxDXb2C-k"
         },
       ],
       "Farming": [
@@ -165,7 +165,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "45 min",
           icon: GraduationCap,
-          videoId: "y2kg3MOk1sY"
+          videoId: "6eRwgM2Pa4o"
         },
         {
           title: "Basic English Grammar & GK Preparation",
@@ -174,7 +174,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "50 min",
           icon: BookOpen,
-          videoId: "6eRwgM2Pa4o"
+          videoId: "67zsqEvE7-0"
         },
       ]
 };
