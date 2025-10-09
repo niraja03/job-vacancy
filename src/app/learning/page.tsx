@@ -37,146 +37,146 @@ type LearningModule = {
 };
 
 const learningContent: Record<string, LearningModule[]> = {
-  "Common": [
-    { 
-      title: "Basic English Communication", 
-      description: "Enhance your English communication skills for everyday and professional interactions.",
-      category: "Common Learning", 
-      type: "video", 
-      duration: "25 min", 
-      icon: GraduationCap,
-      videoId: "67zsqEvE7-0"
-    },
-    { 
-      title: "Digital Literacy", 
-      description: "An introductory course on digital literacy, covering essential computer and internet skills.",
-      category: "Common Learning", 
-      type: "video", 
-      duration: "30 min", 
-      icon: Laptop,
-      videoId: "y2kg3MOk1sY"
-    },
-  ],
-  "Teaching": [
-    {
-      title: "Classroom Management Basics",
-      description: "Learn effective classroom management techniques to create a positive learning environment.",
-      category: "Teaching",
-      type: "video",
-      duration: "18 min",
-      icon: Briefcase,
-      videoId: "6eRwgM2Pa4o"
-    },
-    {
-      title: "Digital Teaching Tools",
-      description: "A step-by-step guide to using Google Classroom for organizing and managing class activities.",
-      category: "Teaching",
-      type: "video",
-      duration: "22 min",
-      icon: Laptop,
-      videoId: "Plse2FOkV4Q"
-    },
-  ],
-  "Healthcare": [
-    {
-      title: "Basic First Aid & CPR Training",
-      description: "Detailed instructions on performing CPR, including chest compressions and rescue breaths.",
-      category: "Healthcare",
-      type: "video",
-      duration: "25 min",
-      icon: HeartPulse,
-      videoId: "plse2fOKV4Q"
-    },
-    {
-      title: "Patient Communication Skills",
-      description: "Tips and techniques for effective communication with patients in a healthcare setting.",
-      category: "Healthcare",
-      type: "video",
-      duration: "15 min",
-      icon: Users,
-      videoId: "qkKxDXb2C-k"
-    },
-  ],
-  "Farming": [
-    {
-      title: "Modern Farming Techniques",
-      description: "Explore innovative technologies transforming modern agriculture practices.",
-      category: "Agriculture",
-      type: "video",
-      duration: "28 min",
-      icon: Tractor,
-      videoId: "TdyMxJcT7a4"
-    },
-    {
-      title: "Soil Health & Fertilizer Management",
-      description: "Understanding the importance of soil health and effective fertilizer use for sustainable farming.",
-      category: "Agriculture",
-      type: "video",
-      duration: "19 min",
-      icon: BookOpen,
-      videoId: "lnD8E6Q1Ia0"
-    },
-  ],
-  "IT": [
-    {
-      title: "Basic Computer Use",
-      description: "A beginner-friendly guide to understanding computer components and basic operations.",
-      category: "IT Sector",
-      type: "video",
-      duration: "35 min",
-      icon: Laptop,
-      videoId: "rtnPIb6Dszk"
-    },
-    {
-      title: "Introduction to Programming",
-      description: "An introductory session on Python programming, covering basic concepts and syntax.",
-      category: "IT Sector",
-      type: "video",
-      duration: "60 min",
-      icon: Code,
-      videoId: "kqtD5dpn9C8"
-    },
-  ],
-  "Construction": [
-    {
-      title: "Construction Safety Training",
-      description: "Essential safety practices and guidelines for working on construction sites.",
-      category: "Construction",
-      type: "video",
-      duration: "20 min",
-      icon: Shield,
-      videoId: "Dhxf5mm7g1g"
-    },
-    {
-      title: "Blueprint Reading Basics",
-      description: "A beginner's guide to understanding and interpreting construction blueprints.",
-      category: "Construction",
-      type: "video",
-      duration: "30 min",
-      icon: BookOpen,
-      videoId: "DSuP4YkaJ40"
-    },
-  ],
-  "Government": [
-    {
-      title: "Aptitude & Reasoning Practice",
-      description: "Practice exercises and strategies for improving aptitude and reasoning skills for competitive exams.",
-      category: "Government Jobs",
-      type: "video",
-      duration: "45 min",
-      icon: GraduationCap,
-      videoId: "6eRwgM2Pa4o"
-    },
-    {
-      title: "Basic English Grammar & GK Preparation",
-      description: "A comprehensive tutorial on English grammar essentials for exam preparation.",
-      category: "Government Jobs",
-      type: "video",
-      duration: "50 min",
-      icon: BookOpen,
-      videoId: "67zsqEvE7-0"
-    },
-  ],
+    "Common": [
+        { 
+          title: "Basic English Communication", 
+          description: "Enhance your English communication skills for everyday and professional interactions.",
+          category: "Common Learning", 
+          type: "video", 
+          duration: "25 min", 
+          icon: GraduationCap,
+          videoId: "67zsqEvE7-0"
+        },
+        { 
+          title: "Digital Literacy", 
+          description: "An introductory course on digital literacy, covering essential computer and internet skills.",
+          category: "Common Learning", 
+          type: "video", 
+          duration: "30 min", 
+          icon: Laptop,
+          videoId: "y2kg3MOk1sY"
+        },
+      ],
+      "Teaching": [
+        {
+          title: "Classroom Management Basics",
+          description: "Learn effective classroom management techniques to create a positive learning environment.",
+          category: "Teaching",
+          type: "video",
+          duration: "18 min",
+          icon: Briefcase,
+          videoId: "6eRwgM2Pa4o"
+        },
+        {
+          title: "Digital Teaching Tools",
+          description: "A step-by-step guide to using Google Classroom for organizing and managing class activities.",
+          category: "Teaching",
+          type: "video",
+          duration: "22 min",
+          icon: Laptop,
+          videoId: "Plse2FOkV4Q"
+        },
+      ],
+      "Healthcare": [
+        {
+          title: "Basic First Aid & CPR Training",
+          description: "Detailed instructions on performing CPR, including chest compressions and rescue breaths.",
+          category: "Healthcare",
+          type: "video",
+          duration: "25 min",
+          icon: HeartPulse,
+          videoId: "plse2fOKV4Q"
+        },
+        {
+          title: "Patient Communication Skills",
+          description: "Tips and techniques for effective communication with patients in a healthcare setting.",
+          category: "Healthcare",
+          type: "video",
+          duration: "15 min",
+          icon: Users,
+          videoId: "qkKxDXb2C-k"
+        },
+      ],
+      "Farming": [
+        {
+          title: "Modern Farming Techniques",
+          description: "Explore innovative technologies transforming modern agriculture practices.",
+          category: "Agriculture",
+          type: "video",
+          duration: "28 min",
+          icon: Tractor,
+          videoId: "TdyMxJcT7a4"
+        },
+        {
+          title: "Soil Health & Fertilizer Management",
+          description: "Understanding the importance of soil health and effective fertilizer use for sustainable farming.",
+          category: "Agriculture",
+          type: "video",
+          duration: "19 min",
+          icon: BookOpen,
+          videoId: "lnD8E6Q1Ia0"
+        },
+      ],
+      "IT": [
+        {
+          title: "Basic Computer Use",
+          description: "A beginner-friendly guide to understanding computer components and basic operations.",
+          category: "IT Sector",
+          type: "video",
+          duration: "35 min",
+          icon: Laptop,
+          videoId: "rtnPIb6Dszk"
+        },
+        {
+          title: "Introduction to Programming",
+          description: "An introductory session on Python programming, covering basic concepts and syntax.",
+          category: "IT Sector",
+          type: "video",
+          duration: "60 min",
+          icon: Code,
+          videoId: "kqtD5dpn9C8"
+        },
+      ],
+      "Construction": [
+        {
+          title: "Construction Safety Training",
+          description: "Essential safety practices and guidelines for working on construction sites.",
+          category: "Construction",
+          type: "video",
+          duration: "20 min",
+          icon: Shield,
+          videoId: "Dhxf5mm7g1g"
+        },
+        {
+          title: "Blueprint Reading Basics",
+          description: "A beginner's guide to understanding and interpreting construction blueprints.",
+          category: "Construction",
+          type: "video",
+          duration: "30 min",
+          icon: BookOpen,
+          videoId: "DSuP4YkaJ40"
+        },
+      ],
+      "Government": [
+        {
+          title: "Aptitude & Reasoning Practice",
+          description: "Practice exercises and strategies for improving aptitude and reasoning skills for competitive exams.",
+          category: "Government Jobs",
+          type: "video",
+          duration: "45 min",
+          icon: GraduationCap,
+          videoId: "6eRwgM2Pa4o"
+        },
+        {
+          title: "Basic English Grammar & GK Preparation",
+          description: "A comprehensive tutorial on English grammar essentials for exam preparation.",
+          category: "Government Jobs",
+          type: "video",
+          duration: "50 min",
+          icon: BookOpen,
+          videoId: "67zsqEvE7-0"
+        },
+      ]
 };
 
 
