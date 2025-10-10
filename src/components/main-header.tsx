@@ -24,11 +24,18 @@ export function MainHeader() {
     { href: "/jobs", label: "Jobs", icon: Briefcase },
     { href: "/resume-builder", label: "Resume Builder", icon: Sparkles },
     { href: "/smart-recommender", label: "Smart Recommender", icon: Sparkles },
-    { href: "/chatbot", label: "AI Chatbot", icon: MessageSquare },
     { href: "/community", label: "Community", icon: Users },
     { href: "/learning", label: "Learning", icon: GraduationCap },
     { href: "/analytics", label: "Analytics", icon: BarChart },
   ];
+
+  const isActive = (href: string) => {
+    // For nested routes, we want to match the base path
+    if (href === "/jobs") {
+      return pathname.startsWith("/jobs");
+    }
+    return pathname === href;
+  }
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur-sm">
@@ -45,7 +52,7 @@ export function MainHeader() {
                 href={item.href}
                 className={cn(
                   "font-bold transition-colors hover:text-foreground/80",
-                  pathname === item.href
+                  isActive(item.href)
                     ? "text-foreground"
                     : "text-foreground/60"
                 )}
@@ -80,7 +87,7 @@ export function MainHeader() {
                     href={item.href}
                     className={cn(
                       "flex items-center space-x-3 rounded-md p-2 font-bold",
-                      pathname === item.href
+                      isActive(item.href)
                         ? "bg-muted"
                         : "hover:bg-muted"
                     )}
