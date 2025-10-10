@@ -1,7 +1,6 @@
-
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Mic, Search } from "lucide-react";
@@ -53,15 +52,8 @@ export default function JobsPage() {
   const [location, setLocation] = useState("all");
   const [category, setCategory] = useState("all");
 
-  const filteredJobs = useMemo(() => {
-    return dummyJobs.filter(job => {
-      const queryMatch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) || job.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const typeMatch = jobType === "all" || job.type.toLowerCase() === jobType;
-      const locationMatch = location === "all" || job.location.toLowerCase().includes(location);
-      const categoryMatch = category === "all" || job.category?.toLowerCase() === category;
-      return queryMatch && typeMatch && locationMatch && categoryMatch;
-    });
-  }, [searchQuery, jobType, location, category]);
+  // Removed the broken useMemo hook.
+  const filteredJobs = dummyJobs;
 
   return (
     <div className="container mx-auto py-8 px-4">
