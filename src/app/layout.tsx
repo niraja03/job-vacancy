@@ -15,7 +15,6 @@ const ptSans = PT_Sans({
 export const metadata: Metadata = {
   title: "Gramin Jobs Connect",
   description: "Connecting rural India with jobs and opportunities.",
-  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
