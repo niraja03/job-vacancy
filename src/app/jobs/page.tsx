@@ -83,7 +83,7 @@ export default function JobsPage() {
               <Mic className="h-5 w-5 text-muted-foreground" />
             </Button>
           </div>
-          <Button size="lg" className="h-12 text-base">Find Jobs</Button>
+          <Button size="lg" className="h-12 text-base" onClick={() => {}}>Find Jobs</Button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 max-w-7xl mx-auto">
           <Select value={jobType} onValueChange={setJobType}>
