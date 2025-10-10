@@ -37,9 +37,7 @@ Your tasks:
 4. Provide clear, concise, and polite responses.
 5. If unsure about a question, politely suggest contacting support.
 
-User Question: {{{query}}}
-
-Your Response:`,
+User Question: {{{query}}}`,
 });
 
 const graminChatbotFlow = ai.defineFlow(

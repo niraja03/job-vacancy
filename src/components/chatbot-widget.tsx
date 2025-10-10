@@ -36,11 +36,13 @@ export function ChatbotWidget() {
   });
 
   useEffect(() => {
-    if (isOpen && scrollAreaRef.current) {
-        const viewport = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
+    if (isOpen) {
+      setTimeout(() => {
+        const viewport = scrollAreaRef.current?.querySelector('[data-radix-scroll-area-viewport]');
         if (viewport) {
              viewport.scrollTop = viewport.scrollHeight;
         }
+      }, 100);
     }
   }, [messages, isOpen]);
 
@@ -52,6 +54,9 @@ export function ChatbotWidget() {
 
     try {
       const result: GraminChatbotOutput = await graminChatbot({ query: values.query });
+      if (!result || !result.response) {
+        throw new Error("AI response is empty.");
+      }
       const assistantMessage: Message = {
         role: "assistant",
         text: result.response,
@@ -64,7 +69,9 @@ export function ChatbotWidget() {
         title: "Error",
         description: "Failed to get a response from the assistant. Please try again.",
       });
-      // Do not remove the user's message on error, so they can retry.
+      // Revert to previous message state and restore input
+      setMessages((prev) => prev.slice(0, -1));
+      form.setValue("query", values.query);
     } finally {
       setIsLoading(false);
     }
