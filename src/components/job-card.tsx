@@ -12,6 +12,7 @@ export type Job = {
   type: string;
   isVerified?: boolean;
   description: string;
+  category?: string;
 };
 
 type JobCardProps = {
