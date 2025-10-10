@@ -41,7 +41,7 @@ const voiceAssistantPrompt = ai.definePrompt({
   name: 'voiceAssistantPrompt',
   model: 'googleai/gemini-1.5-flash-latest',
   input: {schema: z.object({query: z.string()})},
-  output: {schema: z.object({ response: z.string().describe('Response to user query.')})},
+  output: {schema: z.string().describe('Response to user query.')},
   prompt: `You are a helpful voice assistant for Gramin Jobs Connect, a platform for rural employment.
 Your goal is to guide users to find jobs and answer their questions clearly and concisely.
 Respond to the user query.
@@ -94,15 +94,13 @@ const voiceAssistantFlow = ai.defineFlow(
   },
   async input => {
     // 1. Get initial response in English
-    const {output: assistantOutput} = await voiceAssistantPrompt({
+    const {output: englishResponse} = await voiceAssistantPrompt({
       query: input.query,
     });
 
-    if (!assistantOutput || !assistantOutput.response) {
+    if (!englishResponse) {
       throw new Error('Failed to get a response from the assistant.');
     }
-    const englishResponse = assistantOutput.response;
-
 
     let translatedResponse = englishResponse;
 
