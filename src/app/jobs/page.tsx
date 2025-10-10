@@ -25,16 +25,16 @@ const maharashtraCities = [
 
 export default function JobsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [jobType, setJobType] = useState("");
-  const [location, setLocation] = useState("");
-  const [category, setCategory] = useState("");
+  const [jobType, setJobType] = useState("all");
+  const [location, setLocation] = useState("all");
+  const [category, setCategory] = useState("all");
 
   const filteredJobs = useMemo(() => {
     return dummyJobs.filter(job => {
       const queryMatch = job.title.toLowerCase().includes(searchQuery.toLowerCase()) || job.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const typeMatch = !jobType || job.type.toLowerCase() === jobType;
-      const locationMatch = !location || job.location.toLowerCase().includes(location);
-      const categoryMatch = !category || job.category?.toLowerCase() === category;
+      const typeMatch = jobType === "all" || job.type.toLowerCase() === jobType;
+      const locationMatch = location === "all" || job.location.toLowerCase().includes(location);
+      const categoryMatch = category === "all" || job.category?.toLowerCase() === category;
       return queryMatch && typeMatch && locationMatch && categoryMatch;
     });
   }, [searchQuery, jobType, location, category]);
@@ -68,7 +68,7 @@ export default function JobsPage() {
               <SelectValue placeholder="Job Type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Types</SelectItem>
+              <SelectItem value="all">All Types</SelectItem>
               <SelectItem value="full-time">Full-time</SelectItem>
               <SelectItem value="part-time">Part-time</SelectItem>
               <SelectItem value="contract">Contract</SelectItem>
@@ -79,7 +79,7 @@ export default function JobsPage() {
               <SelectValue placeholder="Location" />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value="">All Locations</SelectItem>
+                <SelectItem value="all">All Locations</SelectItem>
                 {maharashtraCities.map(city => (
                     <SelectItem key={city} value={city.toLowerCase()}>{city}</SelectItem>
                 ))}
@@ -90,7 +90,7 @@ export default function JobsPage() {
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Categories</SelectItem>
+              <SelectItem value="all">All Categories</SelectItem>
               <SelectItem value="agriculture">Agriculture</SelectItem>
               <SelectItem value="teaching">Teaching</SelectItem>
               <SelectItem value="healthcare">Healthcare</SelectItem>
