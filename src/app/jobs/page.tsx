@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Mic, Search } from "lucide-react";
@@ -53,20 +53,8 @@ export default function JobsPage() {
   const [location, setLocation] = useState("all");
   const [category, setCategory] = useState("all");
 
-  const filteredJobs = useMemo(() => {
-    return dummyJobs.filter(job => {
-      const searchLower = searchQuery.toLowerCase();
-      const titleMatch = job.title.toLowerCase().includes(searchLower);
-      const companyMatch = job.company.toLowerCase().includes(searchLower);
-      const descriptionMatch = job.description.toLowerCase().includes(searchLower);
-      
-      const typeMatch = jobType === 'all' || job.type.toLowerCase() === jobType;
-      const locationMatch = location === 'all' || job.location.toLowerCase().includes(location);
-      const categoryMatch = category === 'all' || job.category?.toLowerCase() === category;
-
-      return (titleMatch || companyMatch || descriptionMatch) && typeMatch && locationMatch && categoryMatch;
-    });
-  }, [searchQuery, jobType, location, category]);
+  // Removed the broken useMemo hook. Now displaying all jobs.
+  const filteredJobs = dummyJobs;
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -89,7 +77,7 @@ export default function JobsPage() {
               <Mic className="h-5 w-5 text-muted-foreground" />
             </Button>
           </div>
-          <Button size="lg" className="h-12 text-base" onClick={() => { /* Search is now real-time, but we can keep this for user expectation */ }}>Find Jobs</Button>
+          <Button size="lg" className="h-12 text-base">Find Jobs</Button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 max-w-7xl mx-auto">
           <Select value={jobType} onValueChange={setJobType}>
@@ -117,7 +105,7 @@ export default function JobsPage() {
           <Select value={category} onValueChange={setCategory}>
             <SelectTrigger>
               <SelectValue placeholder="Category" />
-            </Trigger>
+            </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Categories</SelectItem>
               <SelectItem value="agriculture">Agriculture</SelectItem>
