@@ -44,7 +44,7 @@ export function MainHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "transition-colors hover:text-foreground/80",
+                  "font-bold transition-colors hover:text-foreground/80",
                   pathname === item.href
                     ? "text-foreground"
                     : "text-foreground/60"
@@ -79,7 +79,7 @@ export function MainHeader() {
                     key={item.href}
                     href={item.href}
                     className={cn(
-                      "flex items-center space-x-3 rounded-md p-2 font-medium",
+                      "flex items-center space-x-3 rounded-md p-2 font-bold",
                       pathname === item.href
                         ? "bg-muted"
                         : "hover:bg-muted"
