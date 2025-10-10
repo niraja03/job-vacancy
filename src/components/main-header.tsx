@@ -24,7 +24,7 @@ export function MainHeader() {
     { href: "/jobs", label: "Jobs", icon: Briefcase },
     { href: "/resume-builder", label: "Resume Builder", icon: Sparkles },
     { href: "/smart-recommender", label: "Smart Recommender", icon: Sparkles },
-    { href: "/voice-assistant", label: "AI Assistant", icon: MessageSquare },
+    { href: "/chatbot", label: "AI Chatbot", icon: MessageSquare },
     { href: "/community", label: "Community", icon: Users },
     { href: "/learning", label: "Learning", icon: GraduationCap },
     { href: "/analytics", label: "Analytics", icon: BarChart },
