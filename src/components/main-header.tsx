@@ -1,5 +1,7 @@
+"use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,8 +16,10 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { Logo } from "./logo";
+import { cn } from "@/lib/utils";
 
 export function MainHeader() {
+  const pathname = usePathname();
   const navItems = [
     { href: "/jobs", label: "Jobs", icon: Briefcase },
     { href: "/resume-builder", label: "Resume Builder", icon: Sparkles },
@@ -39,7 +43,12 @@ export function MainHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
+                className={cn(
+                  "transition-colors hover:text-foreground/80",
+                  pathname === item.href
+                    ? "text-foreground"
+                    : "text-foreground/60"
+                )}
               >
                 {item.label}
               </Link>
@@ -69,7 +78,12 @@ export function MainHeader() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="flex items-center space-x-3 rounded-md p-2 font-medium hover:bg-muted"
+                    className={cn(
+                      "flex items-center space-x-3 rounded-md p-2 font-medium",
+                      pathname === item.href
+                        ? "bg-muted"
+                        : "hover:bg-muted"
+                    )}
                   >
                     <item.icon className="h-5 w-5 text-muted-foreground" />
                     <span>{item.label}</span>
