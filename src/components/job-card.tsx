@@ -22,6 +22,14 @@ type JobCardProps = {
 };
 
 export function JobCard({ job }: JobCardProps) {
+  const generateIndeedUrl = (title: string, location: string) => {
+    const encodedTitle = encodeURIComponent(title);
+    const encodedLocation = encodeURIComponent(location);
+    return `https://in.indeed.com/jobs?q=${encodedTitle}&l=${encodedLocation}`;
+  }
+
+  const jobUrl = job.url || generateIndeedUrl(job.title, job.location);
+
   return (
     <Card className="hover:shadow-lg transition-shadow duration-300 flex flex-col h-full">
       <CardHeader>
@@ -56,8 +64,8 @@ export function JobCard({ job }: JobCardProps) {
         </p>
       </CardContent>
       <CardFooter className="flex justify-between items-center border-t pt-4">
-        {job.url ? (
-          <Link href={job.url} target="_blank" rel="noopener noreferrer" className="w-full">
+        {jobUrl ? (
+          <Link href={jobUrl} target="_blank" rel="noopener noreferrer" className="w-full">
             <Button className="w-full">View Details</Button>
           </Link>
         ) : (
