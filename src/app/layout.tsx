@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers";
 import { Toaster } from "@/components/ui/toaster";
 import { MainHeader } from "@/components/main-header";
+import { Chatbot } from "@/components/chatbot";
 
 const ptSans = PT_Sans({
   subsets: ["latin"],
@@ -44,6 +45,7 @@ export default function RootLayout({
           <div className="relative flex min-h-screen flex-col">
             <MainHeader />
             <main className="flex-1">{children}</main>
+            <Chatbot />
           </div>
           <Toaster />
         </ThemeProvider>

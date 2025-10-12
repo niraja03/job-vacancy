@@ -14,6 +14,7 @@ import {
   CircleUser,
   Bell,
   MessageSquare,
+  Bot,
 } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
@@ -26,6 +27,7 @@ export function MainHeader() {
     { href: "/analytics", label: "Analytics", icon: BarChart },
     { href: "/smart-recommender", label: "Smart Recommender", icon: Sparkles },
     { href: "/community", label: "Community", icon: Users },
+    { href: "#chatbot", label: "Chatbot", icon: Bot },
   ];
 
   const isActive = (href: string) => {
@@ -33,6 +35,7 @@ export function MainHeader() {
     if (href === "/jobs") {
       return pathname.startsWith("/jobs");
     }
+     if (href.startsWith("#")) return false;
     return pathname === href;
   }
 
@@ -55,6 +58,16 @@ export function MainHeader() {
                     ? "text-foreground"
                     : "text-foreground/60"
                 )}
+                 onClick={(e) => {
+                  if (item.href.startsWith('#')) {
+                    e.preventDefault();
+                    // In a real app, you might use a state management library
+                    // to open the chatbot. For now, we can rely on the chatbot
+                    // component's own state management.
+                    const chatbotButton = document.querySelector('button[aria-label="Toggle Chatbot"]') as HTMLButtonElement;
+                    chatbotButton?.click();
+                  }
+                }}
               >
                 {item.label}
               </Link>
