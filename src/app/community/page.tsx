@@ -55,8 +55,8 @@ export default function CommunityPage() {
 
     const newPost = {
       id: posts.length + 1,
-      author: "Jhon Doe", // In a real app, this would be the logged-in user
-      avatar: "JD",
+      author: "NASBA-A4", // In a real app, this would be the logged-in user
+      avatar: "NA",
       content: newPostContent,
       likes: 0,
       comments: 0,

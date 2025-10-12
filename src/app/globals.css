@@ -5,13 +5,13 @@
 
 @layer base {
   :root {
-    --background: 60 90% 85%; /* Yellow */
-    --foreground: 0 0% 0%; /* Black */
+    --background: 60 90% 50%; /* Yellow */
+    --foreground: 60 90% 98%; /* White */
     --card: 47 33% 99%;
     --card-foreground: 20 14.3% 4.1%;
     --popover: 47 33% 99%;
     --popover-foreground: 20 14.3% 4.1%;
-    --primary: 80 60% 20%; /* Dark Earthy Green */
+    --primary: 120 70% 15%; /* Dark Green */
     --primary-foreground: 60 9.1% 97.8%;
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
@@ -23,8 +23,8 @@
     --destructive-foreground: 60 9.1% 97.8%;
     --border: 60 5.9% 90%;
     --input: 60 5.9% 90%;
-    --ring: 80 60% 20%;
-    --chart-1: 80 60% 20%;
+    --ring: 120 70% 15%;
+    --chart-1: 120 70% 15%;
     --chart-2: 25 95% 53%;
     --chart-3: 180 50% 40%;
     --chart-4: 40 90% 55%;
@@ -39,7 +39,7 @@
     --card-foreground: 20 14.3% 4.1%;
     --popover: 47 33% 99%;
     --popover-foreground: 20 14.3% 4.1%;
-    --primary: 80 60% 20%; /* Dark Earthy Green */
+    --primary: 120 70% 15%; /* Dark Green */
     --primary-foreground: 60 9.1% 97.8%;
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
@@ -51,8 +51,8 @@
     --destructive-foreground: 60 9.1% 97.8%;
     --border: 60 5.9% 90%;
     --input: 60 5.9% 90%;
-    --ring: 80 60% 20%;
-    --chart-1: 80 60% 20%;
+    --ring: 120 70% 15%;
+    --chart-1: 120 70% 15%;
     --chart-2: 25 95% 53%;
     --chart-3: 180 50% 40%;
     --chart-4: 40 90% 55%;
