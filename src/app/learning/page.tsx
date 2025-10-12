@@ -36,13 +36,13 @@ type LearningModule = {
 const learningContent: Record<string, LearningModule[]> = {
     "Common": [
         {
-          title: "Basic English Communication",
+          title: "Basic English Communication practice",
           description: "Enhance your English communication skills for everyday and professional interactions.",
           category: "Common Learning",
           type: "video",
-          duration: "25 min",
+          duration: "33 min",
           icon: GraduationCap,
-          url: "https://www.youtube.com/watch?v=67zsqEvE7-0"
+          url: "https://youtu.be/henIVlCPVIY?si=TGcCMR-qa578slss"
         },
         {
           title: "Digital Literacy",
@@ -53,6 +53,114 @@ const learningContent: Record<string, LearningModule[]> = {
           icon: Laptop,
           url: "https://www.youtube.com/watch?v=y2kg3MOk1sY"
         },
+        {
+          title: "Classroom Management Basics",
+          description: "Learn effective classroom management techniques to create a positive learning environment.",
+          category: "Teaching",
+          type: "video",
+          duration: "18 min",
+          icon: Briefcase,
+          url: "https://youtu.be/muql7erdmZE?si=SzjsKyIXGD8u5UnW"
+        },
+        {
+          title: "Digital Teaching Tools",
+          description: "A step-by-step guide to using Google Classroom for organizing and managing class activities.",
+          category: "Teaching",
+          type: "video",
+          duration: "60 min",
+          icon: Laptop,
+          url: "https://youtu.be/BffyLJmMJTM?si=ij3_doQU7vetUvnw"
+        },
+        {
+          title: "healthcare technology trends",
+          description: "Detailed instructions, including all trends and tools .",
+          category: "Healthcare",
+          type: "video",
+          duration: "7 min",
+          icon: HeartPulse,
+          url: "https://youtu.be/AoL6wodWzJ0?si=UN5JPuIVHRlMoWOA"
+        },
+        {
+          title: "Patient Communication Skills",
+          description: "Tips and techniques for effective communication with patients in a healthcare setting.",
+          category: "Healthcare",
+          type: "video",
+          duration: "15 min",
+          icon: Users,
+          url: "https://www.youtube.com/watch?v=qkKxDXb2C-k"
+        },
+        {
+          title: "Modern Farming Techniques",
+          description: "Explore innovative technologies transforming modern agriculture practices.",
+          category: "Agriculture",
+          type: "video",
+          duration: "28 min",
+          icon: Tractor,
+          url: "https://www.youtube.com/watch?v=TdyMxJcT7a4"
+        },
+        {
+          title: "Soil Health & Fertilizer Management",
+          description: "Understanding the importance of soil health and effective fertilizer use for sustainable farming.",
+          category: "Agriculture",
+          type: "video",
+          duration: "19 min",
+          icon: BookOpen,
+          url: "https://www.youtube.com/watch?v=lnD8E6Q1Ia0"
+        },
+        {
+          title: "Basic Computer Use",
+          description: "A beginner-friendly guide to understanding computer components and basic operations.",
+          category: "IT Sector",
+          type: "video",
+          duration: "35 min",
+          icon: Laptop,
+          url: "https://www.youtube.com/watch?v=rtnPIb6Dszk"
+        },
+        {
+          title: "Introduction to Programming",
+          description: "An introductory session on Python programming, covering basic concepts and syntax.",
+          category: "IT Sector",
+          type: "video",
+          duration: "60 min",
+          icon: Code,
+          url: "https://www.youtube.com/watch?v=kqtD5dpn9C8"
+        },
+        {
+          title: "Construction Safety Training",
+          description: "Essential safety practices and guidelines for working on construction sites.",
+          category: "Construction",
+          type: "video",
+          duration: "20 min",
+          icon: Shield,
+          url: "https://www.youtube.com/watch?v=Dhxf5mm7g1g"
+        },
+        {
+          title: "Blueprint Reading Basics",
+          description: "A beginner's guide to understanding and interpreting construction blueprints.",
+          category: "Construction",
+          type: "video",
+          duration: "30 min",
+          icon: BookOpen,
+          url: "https://www.youtube.com/watch?v=DSuP4YkaJ40"
+        },
+        {
+          title: "Aptitude & Reasoning Practice",
+          description: "Practice exercises and strategies for improving aptitude and reasoning skills for competitive exams.",
+          category: "Government Jobs",
+          type: "video",
+          duration: "60 min",
+          icon: GraduationCap,
+          url: "https://youtu.be/4ELFqarmRXQ?si=KJ4K8gWltF7a0OXv"
+        },
+        {
+          title: "Basic English Grammar & GK Preparation",
+          description: "A comprehensive tutorial on English grammar essentials for exam preparation.",
+          category: "Government Jobs",
+          type: "video",
+          duration: "2 hours",
+          icon: BookOpen,
+          url: "https://www.youtube.com/live/oQMoH3YJsYc?si=m3BbHmLk3v7XTek0"
+        },
       ],
       "Teaching": [
         {
@@ -62,27 +170,27 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "18 min",
           icon: Briefcase,
-          url: "https://www.youtube.com/watch?v=6eRwgM2Pa4o"
+          url: "https://youtu.be/muql7erdmZE?si=SzjsKyIXGD8u5UnW"
         },
         {
           title: "Digital Teaching Tools",
           description: "A step-by-step guide to using Google Classroom for organizing and managing class activities.",
           category: "Teaching",
           type: "video",
-          duration: "22 min",
+          duration: "60 min",
           icon: Laptop,
-          url: "https://www.youtube.com/watch?v=Plse2FOkV4Q"
+          url: "https://youtu.be/BffyLJmMJTM?si=ij3_doQU7vetUvnw"
         },
       ],
       "Healthcare": [
         {
-          title: "Basic First Aid & CPR Training",
-          description: "Detailed instructions on performing CPR, including chest compressions and rescue breaths.",
+          title: "healthcare technology trends",
+          description: "Detailed instructions, including all trends and tools .",
           category: "Healthcare",
           type: "video",
-          duration: "25 min",
+          duration: "7 min",
           icon: HeartPulse,
-          url: "https://www.youtube.com/watch?v=plse2fOKV4Q"
+          url: "https://youtu.be/AoL6wodWzJ0?si=UN5JPuIVHRlMoWOA"
         },
         {
           title: "Patient Communication Skills",
@@ -160,18 +268,18 @@ const learningContent: Record<string, LearningModule[]> = {
           description: "Practice exercises and strategies for improving aptitude and reasoning skills for competitive exams.",
           category: "Government Jobs",
           type: "video",
-          duration: "45 min",
+          duration: "60 min",
           icon: GraduationCap,
-          url: "https://www.youtube.com/watch?v=6eRwgM2Pa4o"
+          url: "https://youtu.be/4ELFqarmRXQ?si=KJ4K8gWltF7a0OXv"
         },
         {
           title: "Basic English Grammar & GK Preparation",
           description: "A comprehensive tutorial on English grammar essentials for exam preparation.",
           category: "Government Jobs",
           type: "video",
-          duration: "50 min",
+          duration: "2 hours",
           icon: BookOpen,
-          url: "https://www.youtube.com/watch?v=67zsqEvE7-0"
+          url: "https://www.youtube.com/live/oQMoH3YJsYc?si=m3BbHmLk3v7XTek0"
         },
       ]
 };
@@ -208,7 +316,6 @@ const LearningModuleCard = ({ module }: { module: LearningModule }) => (
     </Card>
   </Link>
 );
-
 
 export default function LearningPage() {
   const categories = Object.keys(learningContent);
