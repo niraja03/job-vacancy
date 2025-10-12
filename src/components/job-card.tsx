@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Briefcase, IndianRupee, CheckCircle2, Flag } from "lucide-react";
+import { MapPin, Briefcase, CheckCircle2, Flag } from "lucide-react";
 
 export type Job = {
   id: number;
@@ -45,8 +45,8 @@ export function JobCard({ job }: JobCardProps) {
         </div>
         {job.salary && (
            <div className="flex items-center text-muted-foreground text-sm">
-             <IndianRupee className="h-4 w-4 mr-2" />
-             <span>{job.salary}</span>
+             <span className="font-bold mr-2">INR</span>
+             <span>{job.salary.replace("INR", "")}</span>
            </div>
         )}
         <p className="text-sm text-foreground/80 pt-2 line-clamp-3">
