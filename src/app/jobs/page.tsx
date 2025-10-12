@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Mic, Search } from "lucide-react";
@@ -84,7 +84,7 @@ const dummyJobs: Job[] = [
   { id: 73, "title": "DTP Operator", "company": "Priya Graphics", "location": "Sangli, Maharashtra", "type": "Full-time", "description": "Design and create layouts for print materials using CorelDRAW or Photoshop.", "category": "it" },
   { id: 74, "title": "Home Guard", "company": "Home Guard Department", "location": "Various", "type": "Part-time", "isVerified": true, "salary": "Daily allowance", "description": "Auxiliary force to the police for maintaining internal security and helping in emergencies.", "category": "government" },
   { id: 75, "title": "Tailor", "company": "StyleFit Boutique", "location": "Nashik, Maharashtra", "type": "Full-time", "description": "Skilled tailor for stitching blouses, dresses, and trousers.", "category": "retail" },
-  { id: 76, "title": "Food Processing Worker", "company": "Mapro Foods", "location": "Satara, Maharashtra", "type": "Full-time", isVerified: true, "description": "Work on the production line for making jams, jellies, and squashes.", "category": "agriculture" },
+  { id: 76, "title": "Food Processing Worker", "company": "Mapro Foods", "location": "Satara, Maharashtra", "type": "Full-time", "isVerified": true, "description": "Work on the production line for making jams, jellies, and squashes.", "category": "agriculture" },
   { id: 77, "title": "Physical Education Teacher", "company": "New English School", "location": "Beed, Maharashtra", "type": "Full-time", "description": "Conduct physical education classes and train school teams.", "category": "teaching" },
   { id: 78, "title": "Dialysis Technician", "company": "Kidney Care Center", "location": "Nanded, Maharashtra", "type": "Full-time", "description": "Operate dialysis machines for patients with kidney failure.", "category": "healthcare" },
   { id: 79, "title": "Waterproofing Applicator", "company": "Dr. Fixit Services", "location": "Mumbai, Maharashtra", "type": "Contract", "description": "Apply waterproofing chemicals to roofs and walls.", "category": "construction" },
@@ -97,14 +97,14 @@ const dummyJobs: Job[] = [
   { id: 86, "title": "POP False Ceiling Worker", "company": "Interior Designs Co.", "location": "Pune, Maharashtra", "type": "Contract", "description": "Skilled in creating and installing Plaster of Paris (POP) false ceilings.", "category": "construction" },
   { id: 87, "title": "CAD Draughtsman (Civil)", "company": "Infra Consultants", "location": "Aurangabad, Maharashtra", "type": "Full-time", "description": "Prepare detailed civil engineering drawings using AutoCAD.", "category": "it" },
   { id: 88, "title": "Election Booth Level Officer (BLO)", "company": "Election Commission", "location": "Various Villages", "type": "Part-time", "isVerified": true, "description": "Assist in electoral roll management and election-day activities.", "category": "government" },
-  { id: 89, "title": "Textile Mill Worker", "company": "Raymond Ltd", "location": "Yavatmal, Maharashtra", "type": "Full-time", isVerified: true, "description": "Operate spinning or weaving machinery in a textile mill.", "category": "retail" },
+  { id: 89, "title": "Textile Mill Worker", "company": "Raymond Ltd", "location": "Yavatmal, Maharashtra", "type": "Full-time", "isVerified": true, "description": "Operate spinning or weaving machinery in a textile mill.", "category": "retail" },
   { id: 90, "title": "Veterinary Assistant", "company": "Govt. Veterinary Hospital", "location": "Hingoli, Maharashtra", "type": "Full-time", "description": "Assist the veterinarian in treating livestock and other animals.", "category": "agriculture" },
   { id: 91, "title": "Special Education Teacher", "company": "Inclusive Education Society", "location": "Mumbai, Maharashtra", "type": "Full-time", "description": "Teach children with special needs, adapting curriculum as necessary.", "category": "teaching" },
-  { id: 92, "title": "Medical Representative", "company": "Cipla Ltd", "location": "Nagpur, Maharashtra", "type": "Full-time", isVerified: true, "description": "Promote and sell company's pharmaceutical products to doctors and chemists.", "category": "healthcare" },
+  { id: 92, "title": "Medical Representative", "company": "Cipla Ltd", "location": "Nagpur, Maharashtra", "type": "Full-time", "isVerified": true, "description": "Promote and sell company's pharmaceutical products to doctors and chemists.", "category": "healthcare" },
   { id: 93, "title": "Road Construction Labour", "company": "National Highways Authority", "location": "Across Maharashtra", "type": "Contract", "description": "General labour for national highway construction and repair projects.", "category": "construction" },
   { id: 94, "title": "Graphic Designer (Marathi)", "company": "Creative Ads Agency", "location": "Pune, Maharashtra", "type": "Part-time", "description": "Create graphics for social media, banners, and pamphlets in Marathi.", "category": "it" },
-  { id: 95, "title": "Railway Group D", "company": "Indian Railways", "location": "Various", "type": "Full-time", isVerified: true, "description": "Posts like track maintainer, helper, pointsman in the Indian Railways.", "category": "government" },
-  { id: 96, "title": "Goldsmith", "company": "PNG Jewellers", "location": "Pune, Maharashtra", "type": "Full-time", isVerified: true, "description": "Skilled artisan for crafting and repairing gold ornaments.", "category": "retail" },
+  { id: 95, "title": "Railway Group D", "company": "Indian Railways", "location": "Various", "type": "Full-time", "isVerified": true, "description": "Posts like track maintainer, helper, pointsman in the Indian Railways.", "category": "government" },
+  { id: 96, "title": "Goldsmith", "company": "PNG Jewellers", "location": "Pune, Maharashtra", "type": "Full-time", "isVerified": true, "description": "Skilled artisan for crafting and repairing gold ornaments.", "category": "retail" },
   { id: 97, "title": "Agri-Tourism Guide", "company": "RuralRoots Tours", "location": "Baramati, Maharashtra", "type": "Part-time", "description": "Guide tourists on farm tours, explaining agricultural practices and rural life.", "category": "agriculture" },
   { id: 98, "title": "Computer Hardware Trainer", "company": "Skill Development Center", "location": "Kolhapur, Maharashtra", "type": "Full-time", "description": "Train students in computer assembly, troubleshooting, and networking.", "category": "teaching" },
   { id: 99, "title": "Geriatric Caregiver", "company": "SeniorCare At Home", "location": "Thane, Maharashtra", "type": "Full-time", "description": "Provide compassionate care and assistance to elderly clients at their residence.", "category": "healthcare" },
@@ -125,7 +125,24 @@ export default function JobsPage() {
   const [location, setLocation] = useState("all");
   const [category, setCategory] = useState("all");
 
-  const filteredJobs = dummyJobs;
+  const filteredJobs = useMemo(() => {
+    return dummyJobs.filter((job) => {
+      const searchMatch =
+        searchQuery.trim() === "" ||
+        job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.company.toLowerCase().includes(searchQuery.toLowerCase());
+
+      const jobTypeMatch = jobType === "all" || job.type.toLowerCase() === jobType;
+      
+      const locationMatch = location === "all" || job.location.toLowerCase().split(',')[0].trim() === location;
+
+      const categoryMatch = category === "all" || job.category?.toLowerCase() === category;
+
+      return searchMatch && jobTypeMatch && locationMatch && categoryMatch;
+    });
+  }, [searchQuery, jobType, location, category]);
+
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -148,7 +165,7 @@ export default function JobsPage() {
               <Mic className="h-5 w-5 text-muted-foreground" />
             </Button>
           </div>
-          <Button size="lg" className="h-12 text-base">Find Jobs</Button>
+          <Button size="lg" className="h-12 text-base" onClick={() => { /* Search is now live */ }}>Find Jobs</Button>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4 max-w-7xl mx-auto">
           <Select value={jobType} onValueChange={setJobType}>
@@ -206,3 +223,5 @@ export default function JobsPage() {
     </div>
   );
 }
+
+    
