@@ -2,6 +2,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Briefcase, CheckCircle2, Flag } from "lucide-react";
+import Link from "next/link";
 
 export type Job = {
   id: number;
@@ -13,6 +14,7 @@ export type Job = {
   isVerified?: boolean;
   description: string;
   category?: string;
+  url?: string;
 };
 
 type JobCardProps = {
@@ -46,7 +48,7 @@ export function JobCard({ job }: JobCardProps) {
         {job.salary && (
            <div className="flex items-center text-muted-foreground text-sm">
              <span className="font-bold mr-2">INR</span>
-             <span>{job.salary.replace("INR", "")}</span>
+             <span>{job.salary}</span>
            </div>
         )}
         <p className="text-sm text-foreground/80 pt-2 line-clamp-3">
@@ -54,8 +56,14 @@ export function JobCard({ job }: JobCardProps) {
         </p>
       </CardContent>
       <CardFooter className="flex justify-between items-center border-t pt-4">
-        <Button>View Details</Button>
-        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive">
+        {job.url ? (
+          <Link href={job.url} target="_blank" rel="noopener noreferrer" className="w-full">
+            <Button className="w-full">View Details</Button>
+          </Link>
+        ) : (
+            <Button className="w-full">View Details</Button>
+        )}
+        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive ml-2">
           <Flag className="h-4 w-4 mr-2" /> Report
         </Button>
       </CardFooter>
