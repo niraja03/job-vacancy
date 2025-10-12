@@ -4,8 +4,9 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, HeartPulse, GraduationCap, Building, Shield, LucideIcon } from "lucide-react";
+import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, HeartPulse, GraduationCap, Building, Shield, LucideIcon, Star, Trophy, Download, Share2, Medal } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const Users = (props: React.SVGProps<SVGSVGElement>) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -290,7 +291,16 @@ const certificationLinks = [
     { name: "Coursera for Rural", url: "https://www.coursera.org/", description: "Access free courses from top universities and companies." },
     { name: "e-Krishi Shiksha", url: "https://icar.org.in/content/e-krishi-shiksha", description: "Learn about modern agricultural practices from ICAR." },
     { name: "Swayam", url: "https://swayam.gov.in/", description: "Free online courses by Government of India." },
-]
+];
+
+const achievements = [
+    { type: 'trophy', title: 'Top Learner of the Month', date: 'June 2024', icon: Trophy, color: 'text-yellow-400', bgColor: 'bg-yellow-400/10' },
+    { type: 'certificate', title: 'Digital Literacy Certificate', date: 'May 20, 2024', icon: Award, color: 'text-blue-500', bgColor: 'bg-blue-500/10', url: '#' },
+    { type: 'badge', title: '5 Videos Watched', date: 'May 18, 2024', icon: Medal, color: 'text-green-500', bgColor: 'bg-green-500/10' },
+    { type: 'badge', title: 'First Course Completed', date: 'May 15, 2024', icon: Medal, color: 'text-indigo-500', bgColor: 'bg-indigo-500/10' },
+    { type: 'points', title: '500 Learning Points', date: 'Accumulated', icon: Star, color: 'text-orange-500', bgColor: 'bg-orange-500/10' },
+    { type: 'badge', title: 'Community Helper', date: 'April 2024', icon: Medal, color: 'text-pink-500', bgColor: 'bg-pink-500/10' },
+];
 
 const LearningModuleCard = ({ module }: { module: LearningModule }) => (
   <Link href={module.url} target="_blank" rel="noopener noreferrer" className="block h-full">
@@ -317,6 +327,23 @@ const LearningModuleCard = ({ module }: { module: LearningModule }) => (
   </Link>
 );
 
+
+const AchievementCard = ({ achievement }: { achievement: (typeof achievements)[0] }) => {
+    const CardBody = (
+        <Card className={`group overflow-hidden h-full flex flex-col items-center justify-center text-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 ${achievement.bgColor}`}>
+            <achievement.icon className={`h-16 w-16 mb-3 transform transition-transform duration-300 group-hover:scale-110 ${achievement.color}`} />
+            <CardTitle className="text-base font-bold leading-tight">{achievement.title}</CardTitle>
+            <CardDescription className="text-xs mt-1">{achievement.date}</CardDescription>
+        </Card>
+    );
+
+    return achievement.url ? (
+        <Link href={achievement.url} target="_blank" rel="noopener noreferrer" className="block h-full">
+            {CardBody}
+        </Link>
+    ) : CardBody;
+};
+
 export default function LearningPage() {
   const categories = Object.keys(learningContent);
 
@@ -328,10 +355,12 @@ export default function LearningPage() {
       </header>
 
       <Tabs defaultValue="courses" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-8">
+        <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto mb-8">
           <TabsTrigger value="courses"><BookOpen className="h-4 w-4 mr-2" />Micro-Learning</TabsTrigger>
           <TabsTrigger value="certifications"><Award className="h-4 w-4 mr-2" />Certifications</TabsTrigger>
+          <TabsTrigger value="achievements"><Trophy className="h-4 w-4 mr-2" />My Achievements</TabsTrigger>
         </TabsList>
+        
         <TabsContent value="courses">
             <Tabs defaultValue={categories[0]} className="w-full">
                <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 mb-8">
@@ -350,6 +379,7 @@ export default function LearningPage() {
                 ))}
             </Tabs>
         </TabsContent>
+
         <TabsContent value="certifications">
             <div className="max-w-3xl mx-auto space-y-4">
                 <CardDescription className="text-center mb-6">Link to free courses from government and other organizations to get certified.</CardDescription>
@@ -366,6 +396,28 @@ export default function LearningPage() {
                         </Card>
                     </Link>
                 ))}
+            </div>
+        </TabsContent>
+
+        <TabsContent value="achievements">
+            <div className="max-w-5xl mx-auto">
+                 <CardHeader className="text-center mb-4">
+                    <CardTitle className="text-3xl font-bold font-headline">Your Trophy Wall</CardTitle>
+                    <CardDescription>All your certificates, badges, and awards in one place.</CardDescription>
+                </CardHeader>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    {achievements.map((ach) => (
+                       <AchievementCard key={ach.title} achievement={ach} />
+                    ))}
+                </div>
+                <div className="mt-8 flex justify-center gap-4">
+                    <Button>
+                        <Share2 className="mr-2 h-4 w-4" /> Share My Achievements
+                    </Button>
+                     <Button variant="outline">
+                        <Download className="mr-2 h-4 w-4" /> Download Portfolio
+                    </Button>
+                </div>
             </div>
         </TabsContent>
       </Tabs>
