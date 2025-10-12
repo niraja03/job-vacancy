@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    --background: 47 33% 96%; /* Light Beige/Formal Yellow */
+    --background: 60 95% 70%; /* Lemon Yellow */
     --foreground: 20 14.3% 4.1%;
     --card: 47 33% 99%;
     --card-foreground: 20 14.3% 4.1%;
@@ -33,7 +33,7 @@
   }
 
   .dark {
-    --background: 47 33% 96%; /* Light Beige */
+    --background: 60 95% 70%; /* Lemon Yellow */
     --foreground: 20 14.3% 4.1%;
     --card: 47 33% 99%;
     --card-foreground: 20 14.3% 4.1%;
