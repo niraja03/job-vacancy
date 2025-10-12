@@ -53,7 +53,6 @@ export default function JobsPage() {
   const [location, setLocation] = useState("all");
   const [category, setCategory] = useState("all");
 
-  // Removed the broken useMemo hook. Now displaying all jobs.
   const filteredJobs = dummyJobs;
 
   return (
@@ -135,7 +134,3 @@ export default function JobsPage() {
     </div>
   );
 }
-
-    
-
-    
