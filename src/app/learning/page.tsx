@@ -4,7 +4,6 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, HeartPulse, GraduationCap, Building, Shield, LucideIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -31,7 +30,7 @@ type LearningModule = {
   type: 'video' | 'pdf';
   duration: string;
   icon: LucideIcon;
-  videoId: string;
+  url: string;
 };
 
 const learningContent: Record<string, LearningModule[]> = {
@@ -43,7 +42,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "25 min",
           icon: GraduationCap,
-          videoId: "67zsqEvE7-0"
+          url: "https://www.youtube.com/watch?v=67zsqEvE7-0"
         },
         {
           title: "Digital Literacy",
@@ -52,7 +51,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "30 min",
           icon: Laptop,
-          videoId: "y2kg3MOk1sY"
+          url: "https://www.youtube.com/watch?v=y2kg3MOk1sY"
         },
       ],
       "Teaching": [
@@ -63,7 +62,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "18 min",
           icon: Briefcase,
-          videoId: "6eRwgM2Pa4o"
+          url: "https://www.youtube.com/watch?v=6eRwgM2Pa4o"
         },
         {
           title: "Digital Teaching Tools",
@@ -72,7 +71,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "22 min",
           icon: Laptop,
-          videoId: "Plse2FOkV4Q"
+          url: "https://www.youtube.com/watch?v=Plse2FOkV4Q"
         },
       ],
       "Healthcare": [
@@ -83,7 +82,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "25 min",
           icon: HeartPulse,
-          videoId: "plse2fOKV4Q"
+          url: "https://www.youtube.com/watch?v=plse2fOKV4Q"
         },
         {
           title: "Patient Communication Skills",
@@ -92,7 +91,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "15 min",
           icon: Users,
-          videoId: "qkKxDXb2C-k"
+          url: "https://www.youtube.com/watch?v=qkKxDXb2C-k"
         },
       ],
       "Farming": [
@@ -103,7 +102,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "28 min",
           icon: Tractor,
-          videoId: "TdyMxJcT7a4"
+          url: "https://www.youtube.com/watch?v=TdyMxJcT7a4"
         },
         {
           title: "Soil Health & Fertilizer Management",
@@ -112,7 +111,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "19 min",
           icon: BookOpen,
-          videoId: "lnD8E6Q1Ia0"
+          url: "https://www.youtube.com/watch?v=lnD8E6Q1Ia0"
         },
       ],
       "IT": [
@@ -123,7 +122,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "35 min",
           icon: Laptop,
-          videoId: "rtnPIb6Dszk"
+          url: "https://www.youtube.com/watch?v=rtnPIb6Dszk"
         },
         {
           title: "Introduction to Programming",
@@ -132,7 +131,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "60 min",
           icon: Code,
-          videoId: "kqtD5dpn9C8"
+          url: "https://www.youtube.com/watch?v=kqtD5dpn9C8"
         },
       ],
       "Construction": [
@@ -143,7 +142,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "20 min",
           icon: Shield,
-          videoId: "Dhxf5mm7g1g"
+          url: "https://www.youtube.com/watch?v=Dhxf5mm7g1g"
         },
         {
           title: "Blueprint Reading Basics",
@@ -152,7 +151,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "30 min",
           icon: BookOpen,
-          videoId: "DSuP4YkaJ40"
+          url: "https://www.youtube.com/watch?v=DSuP4YkaJ40"
         },
       ],
       "Government": [
@@ -163,7 +162,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "45 min",
           icon: GraduationCap,
-          videoId: "6eRwgM2Pa4o"
+          url: "https://www.youtube.com/watch?v=6eRwgM2Pa4o"
         },
         {
           title: "Basic English Grammar & GK Preparation",
@@ -172,7 +171,7 @@ const learningContent: Record<string, LearningModule[]> = {
           type: "video",
           duration: "50 min",
           icon: BookOpen,
-          videoId: "67zsqEvE7-0"
+          url: "https://www.youtube.com/watch?v=67zsqEvE7-0"
         },
       ]
 };
@@ -185,42 +184,34 @@ const certificationLinks = [
     { name: "Swayam", url: "https://swayam.gov.in/", description: "Free online courses by Government of India." },
 ]
 
-const LearningModuleCard = ({ module, onClick }: { module: LearningModule, onClick: () => void }) => (
-  <Card
-    className="group overflow-hidden h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
-    onClick={onClick}
-  >
-    <CardHeader className="p-4">
-      <div className="flex justify-between items-start">
-        <p className="text-xs font-bold uppercase text-primary">{module.category}</p>
-        <div className="bg-background/80 backdrop-blur-sm text-foreground text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
-          {module.type === 'video' ? <Video className="h-3 w-3" /> : <BookOpen className="h-3 w-3" />}
-          <span>{module.duration}</span>
+const LearningModuleCard = ({ module }: { module: LearningModule }) => (
+  <Link href={module.url} target="_blank" rel="noopener noreferrer" className="block h-full">
+    <Card
+      className="group overflow-hidden h-full flex flex-col hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+    >
+      <CardHeader className="p-4">
+        <div className="flex justify-between items-start">
+          <p className="text-xs font-bold uppercase text-primary">{module.category}</p>
+          <div className="bg-background/80 backdrop-blur-sm text-foreground text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1">
+            {module.type === 'video' ? <Video className="h-3 w-3" /> : <BookOpen className="h-3 w-3" />}
+            <span>{module.duration}</span>
+          </div>
         </div>
-      </div>
-    </CardHeader>
-    <CardContent className="p-4 flex-grow flex flex-col">
-      <div className="flex items-start gap-4 mb-2">
-        <module.icon className="h-8 w-8 text-accent mt-1 shrink-0" />
-        <CardTitle className="text-lg font-headline leading-tight flex-grow">{module.title}</CardTitle>
-      </div>
-      <CardDescription className="text-sm">{module.description}</CardDescription>
-    </CardContent>
-  </Card>
+      </CardHeader>
+      <CardContent className="p-4 flex-grow flex flex-col">
+        <div className="flex items-start gap-4 mb-2">
+          <module.icon className="h-8 w-8 text-accent mt-1 shrink-0" />
+          <CardTitle className="text-lg font-headline leading-tight flex-grow">{module.title}</CardTitle>
+        </div>
+        <CardDescription className="text-sm">{module.description}</CardDescription>
+      </CardContent>
+    </Card>
+  </Link>
 );
 
 
 export default function LearningPage() {
   const categories = Object.keys(learningContent);
-  const [selectedModule, setSelectedModule] = useState<LearningModule | null>(null);
-
-  const handleModuleClick = (module: LearningModule) => {
-    setSelectedModule(module);
-  };
-
-  const handleDialogClose = () => {
-    setSelectedModule(null);
-  };
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -245,7 +236,7 @@ export default function LearningPage() {
                     <TabsContent key={category} value={category}>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                             {learningContent[category].map((module) => (
-                                <LearningModuleCard key={module.title} module={module} onClick={() => handleModuleClick(module)} />
+                                <LearningModuleCard key={module.title} module={module} />
                             ))}
                         </div>
                     </TabsContent>
@@ -271,28 +262,6 @@ export default function LearningPage() {
             </div>
         </TabsContent>
       </Tabs>
-      
-      {selectedModule && (
-        <Dialog open={!!selectedModule} onOpenChange={handleDialogClose}>
-            <DialogContent className="max-w-3xl">
-                <DialogHeader>
-                    <DialogTitle>{selectedModule.title}</DialogTitle>
-                    <DialogDescription>{selectedModule.description}</DialogDescription>
-                </DialogHeader>
-                <div className="aspect-video rounded-lg overflow-hidden bg-muted mt-4">
-                     <iframe 
-                        className="w-full h-full" 
-                        src={`https://www.youtube.com/embed/${selectedModule.videoId}`}
-                        title="YouTube video player" 
-                        frameBorder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowFullScreen>
-                    </iframe>
-                </div>
-            </DialogContent>
-        </Dialog>
-      )}
-
     </div>
   );
 }
