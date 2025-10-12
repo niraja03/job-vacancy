@@ -4,11 +4,12 @@
 import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, HeartPulse, GraduationCap, Building, Shield, LucideIcon, Star, Trophy, Download, Share2, Medal, Image } from "lucide-react";
+import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, HeartPulse, GraduationCap, Building, Shield, LucideIcon, Star, Trophy, Download, Share2, Medal, Image, FileText } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 
 const Users = (props: React.SVGProps<SVGSVGElement>) => (
@@ -333,7 +334,7 @@ const LearningModuleCard = ({ module }: { module: LearningModule }) => (
 
 const AchievementCard = ({ achievement }: { achievement: (typeof achievements)[0] }) => {
     const CardBody = (
-        <Card className="group overflow-hidden h-full flex flex-col items-center justify-center text-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 bg-card border-2 border-transparent hover:border-primary">
+        <Card className="group bg-card overflow-hidden h-full flex flex-col items-center justify-center text-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 border-2 border-transparent hover:border-primary">
             <achievement.icon className={`h-16 w-16 mb-3 transform transition-transform duration-300 group-hover:scale-110 ${achievement.color}`} />
             <CardTitle className="text-base font-bold leading-tight">{achievement.title}</CardTitle>
             <CardDescription className="text-xs mt-1">{achievement.date}</CardDescription>
@@ -354,23 +355,23 @@ export default function LearningPage() {
 
 
   const handleShare = async () => {
+    if (!navigator.share) {
+        await navigator.clipboard.writeText(window.location.href);
+        toast({ title: "Link Copied!", description: "Achievements link copied to your clipboard." });
+        return;
+    }
     const shareData = {
       title: "My Achievements on Gramin Jobs Connect",
       text: "Check out my learning achievements! I'm building new skills.",
       url: window.location.href,
     };
     try {
-      if (navigator.share && navigator.canShare(shareData)) {
         await navigator.share(shareData);
         toast({ title: "Shared successfully!" });
-      } else {
-        await navigator.clipboard.writeText(shareData.url);
-        toast({ title: "Link Copied!", description: "Achievements link copied to your clipboard." });
-      }
     } catch (error) {
       console.error("Error sharing:", error);
       if (error instanceof DOMException && error.name === 'AbortError') {
-        return;
+        return; // User cancelled the share dialog
       }
       toast({
         variant: "destructive",
@@ -432,6 +433,54 @@ export default function LearningPage() {
         });
     }
 };
+
+const handleDownloadPdf = async () => {
+    const element = achievementsRef.current;
+    if (!element) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Could not find achievements to download.',
+      });
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(element, { scale: 2 });
+      const imgData = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+      const ratio = canvasWidth / canvasHeight;
+      
+      let imgWidth = pdfWidth - 20; // with margin
+      let imgHeight = imgWidth / ratio;
+
+      if (imgHeight > pdfHeight - 20) {
+        imgHeight = pdfHeight - 20;
+        imgWidth = imgHeight * ratio;
+      }
+      
+      const x = (pdfWidth - imgWidth) / 2;
+      const y = (pdfHeight - imgHeight) / 2;
+
+      pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+      pdf.save('my_achievements.pdf');
+      
+      toast({ title: 'PDF Downloaded', description: 'Your achievements PDF has been saved.' });
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'Could not download PDF.',
+      });
+    }
+  };
 
 
   return (
@@ -504,10 +553,13 @@ export default function LearningPage() {
                         <Share2 className="mr-2 h-4 w-4" /> Share
                     </Button>
                      <Button variant="outline" onClick={handleDownloadText}>
-                        <Download className="mr-2 h-4 w-4" /> Download as Text
+                        <FileText className="mr-2 h-4 w-4" /> Download as Text
                     </Button>
                     <Button variant="outline" onClick={handleDownloadImage}>
                         <Image className="mr-2 h-4 w-4" /> Download as Image
+                    </Button>
+                    <Button variant="outline" onClick={handleDownloadPdf}>
+                        <Download className="mr-2 h-4 w-4" /> Download as PDF
                     </Button>
                 </div>
             </div>
