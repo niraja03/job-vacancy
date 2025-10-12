@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -48,17 +49,17 @@ const searchJobs = ai.defineTool(
         console.log(`Simulating a search for jobs with query: "${input.query}" in location: "${input.location}" on Naukri.com`);
         
         const dummyJobs = [
-            { id: 1, title: "Tractor Driver", company: "Sharma Farms", location: "Pune, Maharashtra", type: "Full-time", isVerified: true, salary: "₹15,000 - ₹20,000 per month", description: "Experienced tractor driver needed for a large farm. Must have a valid license and knowledge of modern farming equipment.", category: "agriculture", url: 'https://example.com/job1' },
-            { id: 2, title: "Data Entry Operator", company: "Gramin Suvidha Kendra", location: "Nashik, Maharashtra", type: "Part-time", salary: "₹8,000 per month", description: "Basic computer knowledge required. Work involves entering data from government forms into our system. Flexible hours.", category: "it", url: 'https://example.com/job2' },
+            { id: 1, title: "Tractor Driver", company: "Sharma Farms", location: "Pune, Maharashtra", type: "Full-time", isVerified: true, salary: "₹15,000 - ₹20,000", description: "Experienced tractor driver needed for a large farm. Must have a valid license and knowledge of modern farming equipment.", category: "agriculture", url: 'https://example.com/job1' },
+            { id: 2, title: "Data Entry Operator", company: "Gramin Suvidha Kendra", location: "Nashik, Maharashtra", type: "Part-time", salary: "₹8,000", description: "Basic computer knowledge required. Work involves entering data from government forms into our system. Flexible hours.", category: "it", url: 'https://example.com/job2' },
             { id: 3, title: "Healthcare Assistant", company: "Village Clinic", location: "Satara, Maharashtra", type: "Full-time", isVerified: true, description: "Assist doctors and nurses with daily tasks. A compassionate and caring attitude is a must.", category: "healthcare", url: 'https://example.com/job3' },
-            { id: 4, title: "Primary School Teacher", company: "Sarvodaya School", location: "Aurangabad, Maharashtra", type: "Full-time", isVerified: true, salary: "₹12,000 per month", description: "Looking for a teacher for classes 1-4. D.Ed or B.Ed preferred. Passion for teaching young children is essential.", category: "teaching", url: 'https://example.com/job4' },
+            { id: 4, title: "Primary School Teacher", company: "Sarvodaya School", location: "Aurangabad, Maharashtra", type: "Full-time", isVerified: true, salary: "₹12,000", description: "Looking for a teacher for classes 1-4. D.Ed or B.Ed preferred. Passion for teaching young children is essential.", category: "teaching", url: 'https://example.com/job4' },
             { id: 5, title: "Construction Worker", company: "Local Builders", location: "Mumbai, Maharashtra", type: "Contract", description: "General labor needed for a new housing project. Daily wages. Immediate start.", category: "construction", url: 'https://example.com/job5' },
             { id: 6, title: "Retail Sales Associate", company: "Kisan Retail Store", location: "Nagpur, Maharashtra", type: "Full-time", isVerified: true, description: "Customer service and sales role in a busy retail environment. Previous experience is a plus.", category: "retail", url: 'https://example.com/job6' },
             { id: 7, title: "Farm Hand", company: "Green Valley Organics", location: "Sangli, Maharashtra", type: "Full-time", description: "General farm duties including planting, harvesting, and livestock care. Hardworking and reliable individuals are welcome.", category: "agriculture", url: 'https://example.com/job7' },
             { id: 8, title: "Anganwadi Worker", company: "Govt. of Maharashtra", location: "Latur, Maharashtra", type: "Full-time", isVerified: true, salary: "As per govt. norms", description: "Provide health and nutrition education and support to women and children in the community.", category: "government", url: 'https://example.com/job8' },
             { id: 9, title: "Electrician", company: "PowerGrid Services", location: "Thane, Maharashtra", type: "Contract", description: "Certified electrician needed for residential and commercial wiring projects. Must have own tools.", category: "construction", url: 'https://example.com/job9' },
             { id: 10, title: "Nursing Aide", company: "City General Hospital", location: "Amravati, Maharashtra", type: "Full-time", isVerified: true, description: "Support nursing staff with patient care, monitoring vitals, and maintaining hygiene.", category: "healthcare", url: 'https://example.com/job10' },
-            { id: 11, title: "Computer Operator", company: "e-Seva Center", location: "Akola, Maharashtra", type: "Part-time", salary: "₹7,500 per month", description: "Assist citizens with online services, form filling, and document processing.", category: "it", url: 'https://example.com/job11' },
+            { id: 11, title: "Computer Operator", company: "e-Seva Center", location: "Akola, Maharashtra", type: "Part-time", salary: "₹7,500", description: "Assist citizens with online services, form filling, and document processing.", category: "it", url: 'https://example.com/job11' },
             { id: 12, title: "Security Guard", company: "SecureCorp", location: "Pune, Maharashtra", type: "Full-time", description: "Night shift security guard for a corporate office. Prior experience is preferred.", category: "retail", url: 'https://example.com/job12' },
         ];
         
@@ -114,8 +115,8 @@ Example conversation:
 
 - User: "Any software jobs in Andhra Pradesh?"
 - Bot: (The bot calls the searchJobs tool with query="software" and location="Andhra Pradesh"). "Here are some live software jobs in Andhra Pradesh I found on Naukri.com:
-  1. Software Developer at XYZ Corp, Hyderabad, ₹25,000/month. [Apply here](https://example.com/job1)
-  2. Junior Web Developer at ABC Pvt Ltd, Vijayawada, ₹18,000/month. [Apply here](https://example.com/job2)
+  1. Software Developer at XYZ Corp, Hyderabad, ₹25,000. [Apply here](https://example.com/job1)
+  2. Junior Web Developer at ABC Pvt Ltd, Vijayawada, ₹18,000. [Apply here](https://example.com/job2)
 You can apply directly via the links provided."
 
 - User: "How can I register?"
@@ -139,3 +140,5 @@ const graminChatbotFlow = ai.defineFlow(
     return output;
   }
 );
+
+    
