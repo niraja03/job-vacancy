@@ -4,7 +4,7 @@
 import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Award, ArrowRight, Star, Trophy, Download, Share2, Medal, Image, FileText } from "lucide-react";
+import { Award, ArrowRight, Star, Trophy, Download, Share2, Medal } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -91,59 +91,6 @@ export default function SkillCredentialsPage() {
     }
   };
 
-  const handleDownloadText = () => {
-    const portfolioContent = achievements
-      .map(ach => `- ${ach.title} (Earned: ${ach.date})`)
-      .join("\n");
-
-    const fullContent = `My Learning Portfolio\n\n${portfolioContent}`;
-
-    const blob = new Blob([fullContent], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "my_achievements.txt";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    toast({ title: "Portfolio Downloaded", description: "my_achievements.txt has been saved."});
-  };
-
-  const handleDownloadImage = async () => {
-    const element = achievementsRef.current;
-    if (!element) {
-        toast({
-            variant: "destructive",
-            title: "Error",
-            description: "Could not find achievements to download.",
-        });
-        return;
-    }
-
-    try {
-        const canvas = await html2canvas(element, { 
-            backgroundColor: null, // Use the actual background
-            scale: 2 // Increase resolution
-        });
-        const dataUrl = canvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = dataUrl;
-        a.download = 'my_achievements.png';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        toast({ title: "Image Downloaded", description: "Your achievements image has been saved." });
-    } catch (error) {
-        console.error('Error generating image:', error);
-        toast({
-            variant: "destructive",
-            title: "Error",
-            description: "Could not download image.",
-        });
-    }
-};
-
 const handleDownloadPdf = async () => {
     const element = achievementsRef.current;
     if (!element) {
@@ -222,12 +169,6 @@ const handleDownloadPdf = async () => {
                 <div className="mt-8 flex flex-wrap justify-center gap-4">
                     <Button onClick={handleShare}>
                         <Share2 className="mr-2 h-4 w-4" /> Share
-                    </Button>
-                     <Button variant="outline" onClick={handleDownloadText}>
-                        <FileText className="mr-2 h-4 w-4" /> Download as Text
-                    </Button>
-                    <Button variant="outline" onClick={handleDownloadImage}>
-                        <Image className="mr-2 h-4 w-4" /> Download as Image
                     </Button>
                     <Button variant="outline" onClick={handleDownloadPdf}>
                         <Download className="mr-2 h-4 w-4" /> Download as PDF
