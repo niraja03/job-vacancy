@@ -330,7 +330,7 @@ const LearningModuleCard = ({ module }: { module: LearningModule }) => (
 
 const AchievementCard = ({ achievement }: { achievement: (typeof achievements)[0] }) => {
     const CardBody = (
-        <Card className={`group overflow-hidden h-full flex flex-col items-center justify-center text-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 ${achievement.bgColor}`}>
+        <Card className={`group overflow-hidden h-full flex flex-col items-center justify-center text-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 bg-card border-2 border-transparent hover:border-primary`}>
             <achievement.icon className={`h-16 w-16 mb-3 transform transition-transform duration-300 group-hover:scale-110 ${achievement.color}`} />
             <CardTitle className="text-base font-bold leading-tight">{achievement.title}</CardTitle>
             <CardDescription className="text-xs mt-1">{achievement.date}</CardDescription>
