@@ -331,7 +331,7 @@ const LearningModuleCard = ({ module }: { module: LearningModule }) => (
 
 const AchievementCard = ({ achievement }: { achievement: (typeof achievements)[0] }) => {
     const CardBody = (
-        <Card className={`group overflow-hidden h-full flex flex-col items-center justify-center text-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 bg-card border-2 border-transparent hover:border-primary`}>
+        <Card className="group overflow-hidden h-full flex flex-col items-center justify-center text-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 bg-card border-2 border-transparent hover:border-primary">
             <achievement.icon className={`h-16 w-16 mb-3 transform transition-transform duration-300 group-hover:scale-110 ${achievement.color}`} />
             <CardTitle className="text-base font-bold leading-tight">{achievement.title}</CardTitle>
             <CardDescription className="text-xs mt-1">{achievement.date}</CardDescription>
@@ -356,16 +356,22 @@ export default function LearningPage() {
       url: window.location.href,
     };
     try {
-      if (navigator.share) {
+      // The Web Share API is only available in secure contexts (HTTPS)
+      // and is mostly supported on mobile browsers.
+      if (navigator.share && navigator.canShare(shareData)) {
         await navigator.share(shareData);
         toast({ title: "Shared successfully!" });
       } else {
-        // Fallback for browsers that don't support Web Share API
+        // Fallback for desktop browsers or non-secure contexts
         await navigator.clipboard.writeText(shareData.url);
         toast({ title: "Link Copied!", description: "Achievements link copied to your clipboard." });
       }
     } catch (error) {
       console.error("Error sharing:", error);
+      // Don't show a destructive toast if the user cancels the share dialog
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        return;
+      }
       toast({
         variant: "destructive",
         title: "Error",
@@ -397,7 +403,7 @@ export default function LearningPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <header className="mb-8 text-center">
-        <h1 className="text-4xl font-bold tracking-tight text-primary font-headline">Learning &amp; Skilling Hub</h1>
+        <h1 className="text-4xl font-bold tracking-tight text-primary font-headline">Learning & Skilling Hub</h1>
         <p className="mt-2 text-lg text-muted-foreground">Learn new skills, get certified, and advance your career.</p>
       </header>
 
@@ -471,5 +477,3 @@ export default function LearningPage() {
     </div>
   );
 }
-
-    
