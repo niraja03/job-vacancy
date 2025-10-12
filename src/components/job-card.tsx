@@ -26,7 +26,7 @@ export function JobCard({ job }: JobCardProps) {
         <div className="flex justify-between items-start">
           <CardTitle className="text-lg font-headline">{job.title}</CardTitle>
           {job.isVerified && (
-            <Badge variant="secondary" className="bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300 border-green-300">
+            <Badge variant="secondary" className="bg-green-200 text-green-900 dark:bg-green-900/50 dark:text-green-300 border-green-400">
               <CheckCircle2 className="mr-1 h-3.5 w-3.5" />
               Verified
             </Badge>
