@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, HeartPulse, GraduationCap, Building, Shield, LucideIcon, Star, Trophy, Download, Share2, Medal } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const Users = (props: React.SVGProps<SVGSVGElement>) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -346,6 +347,52 @@ const AchievementCard = ({ achievement }: { achievement: (typeof achievements)[0
 
 export default function LearningPage() {
   const categories = Object.keys(learningContent);
+  const { toast } = useToast();
+
+  const handleShare = async () => {
+    const shareData = {
+      title: "My Achievements on Gramin Jobs Connect",
+      text: "Check out my learning achievements! I'm building new skills.",
+      url: window.location.href,
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+        toast({ title: "Shared successfully!" });
+      } else {
+        // Fallback for browsers that don't support Web Share API
+        await navigator.clipboard.writeText(shareData.url);
+        toast({ title: "Link Copied!", description: "Achievements link copied to your clipboard." });
+      }
+    } catch (error) {
+      console.error("Error sharing:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Could not share at this time.",
+      });
+    }
+  };
+
+  const handleDownload = () => {
+    const portfolioContent = achievements
+      .map(ach => `- ${ach.title} (Earned: ${ach.date})`)
+      .join("\n");
+
+    const fullContent = `My Learning Portfolio\n\n${portfolioContent}`;
+
+    const blob = new Blob([fullContent], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "my_achievements.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast({ title: "Portfolio Downloaded", description: "my_achievements.txt has been saved."});
+  };
+
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -411,10 +458,10 @@ export default function LearningPage() {
                     ))}
                 </div>
                 <div className="mt-8 flex justify-center gap-4">
-                    <Button>
+                    <Button onClick={handleShare}>
                         <Share2 className="mr-2 h-4 w-4" /> Share My Achievements
                     </Button>
-                     <Button variant="outline">
+                     <Button variant="outline" onClick={handleDownload}>
                         <Download className="mr-2 h-4 w-4" /> Download Portfolio
                     </Button>
                 </div>
@@ -424,3 +471,5 @@ export default function LearningPage() {
     </div>
   );
 }
+
+    
