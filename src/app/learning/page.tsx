@@ -1,13 +1,15 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, HeartPulse, GraduationCap, Building, Shield, LucideIcon, Star, Trophy, Download, Share2, Medal } from "lucide-react";
+import { BookOpen, Video, Award, ArrowRight, Laptop, Tractor, Briefcase, HeartPulse, GraduationCap, Building, Shield, LucideIcon, Star, Trophy, Download, Share2, Medal, Image } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import html2canvas from "html2canvas";
+
 
 const Users = (props: React.SVGProps<SVGSVGElement>) => (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -348,6 +350,8 @@ const AchievementCard = ({ achievement }: { achievement: (typeof achievements)[0
 export default function LearningPage() {
   const categories = Object.keys(learningContent);
   const { toast } = useToast();
+  const achievementsRef = useRef<HTMLDivElement>(null);
+
 
   const handleShare = async () => {
     const shareData = {
@@ -356,19 +360,15 @@ export default function LearningPage() {
       url: window.location.href,
     };
     try {
-      // The Web Share API is only available in secure contexts (HTTPS)
-      // and is mostly supported on mobile browsers.
       if (navigator.share && navigator.canShare(shareData)) {
         await navigator.share(shareData);
         toast({ title: "Shared successfully!" });
       } else {
-        // Fallback for desktop browsers or non-secure contexts
         await navigator.clipboard.writeText(shareData.url);
         toast({ title: "Link Copied!", description: "Achievements link copied to your clipboard." });
       }
     } catch (error) {
       console.error("Error sharing:", error);
-      // Don't show a destructive toast if the user cancels the share dialog
       if (error instanceof DOMException && error.name === 'AbortError') {
         return;
       }
@@ -380,7 +380,7 @@ export default function LearningPage() {
     }
   };
 
-  const handleDownload = () => {
+  const handleDownloadText = () => {
     const portfolioContent = achievements
       .map(ach => `- ${ach.title} (Earned: ${ach.date})`)
       .join("\n");
@@ -398,6 +398,40 @@ export default function LearningPage() {
     URL.revokeObjectURL(url);
     toast({ title: "Portfolio Downloaded", description: "my_achievements.txt has been saved."});
   };
+
+  const handleDownloadImage = async () => {
+    const element = achievementsRef.current;
+    if (!element) {
+        toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Could not find achievements to download.",
+        });
+        return;
+    }
+
+    try {
+        const canvas = await html2canvas(element, { 
+            backgroundColor: null, // Use the actual background
+            scale: 2 // Increase resolution
+        });
+        const dataUrl = canvas.toDataURL('image/png');
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = 'my_achievements.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        toast({ title: "Image Downloaded", description: "Your achievements image has been saved." });
+    } catch (error) {
+        console.error('Error generating image:', error);
+        toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Could not download image.",
+        });
+    }
+};
 
 
   return (
@@ -454,21 +488,26 @@ export default function LearningPage() {
 
         <TabsContent value="achievements">
             <div className="max-w-5xl mx-auto">
-                 <CardHeader className="text-center mb-4">
-                    <CardTitle className="text-3xl font-bold font-headline">Your Trophy Wall</CardTitle>
-                    <CardDescription>All your certificates, badges, and awards in one place.</CardDescription>
-                </CardHeader>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-                    {achievements.map((ach) => (
-                       <AchievementCard key={ach.title} achievement={ach} />
-                    ))}
-                </div>
-                <div className="mt-8 flex justify-center gap-4">
+                <div ref={achievementsRef} className="p-8 bg-background">
+                    <CardHeader className="text-center mb-4">
+                        <CardTitle className="text-3xl font-bold font-headline">Your Trophy Wall</CardTitle>
+                        <CardDescription>All your certificates, badges, and awards in one place.</CardDescription>
+                    </CardHeader>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                        {achievements.map((ach) => (
+                        <AchievementCard key={ach.title} achievement={ach} />
+                        ))}
+                    </div>
+                 </div>
+                <div className="mt-8 flex flex-wrap justify-center gap-4">
                     <Button onClick={handleShare}>
-                        <Share2 className="mr-2 h-4 w-4" /> Share My Achievements
+                        <Share2 className="mr-2 h-4 w-4" /> Share
                     </Button>
-                     <Button variant="outline" onClick={handleDownload}>
-                        <Download className="mr-2 h-4 w-4" /> Download Portfolio
+                     <Button variant="outline" onClick={handleDownloadText}>
+                        <Download className="mr-2 h-4 w-4" /> Download as Text
+                    </Button>
+                    <Button variant="outline" onClick={handleDownloadImage}>
+                        <Image className="mr-2 h-4 w-4" /> Download as Image
                     </Button>
                 </div>
             </div>
