@@ -297,14 +297,34 @@ const certificationLinks = [
     { name: "Swayam", url: "https://swayam.gov.in/", description: "Free online courses by Government of India." },
 ];
 
-const achievements = [
-    { type: 'trophy', title: 'Top Learner of the Month', date: 'June 2024', icon: Trophy, color: 'text-yellow-400', bgColor: 'bg-yellow-400/10' },
-    { type: 'certificate', title: 'Digital Literacy Certificate', date: 'May 20, 2024', icon: Award, color: 'text-blue-500', bgColor: 'bg-blue-500/10', url: '#' },
-    { type: 'badge', title: '5 Videos Watched', date: 'May 18, 2024', icon: Medal, color: 'text-green-500', bgColor: 'bg-green-500/10' },
-    { type: 'badge', title: 'First Course Completed', date: 'May 15, 2024', icon: Medal, color: 'text-indigo-500', bgColor: 'bg-indigo-500/10' },
-    { type: 'points', title: '500 Learning Points', date: 'Accumulated', icon: Star, color: 'text-orange-500', bgColor: 'bg-orange-500/10' },
-    { type: 'badge', title: 'Community Helper', date: 'April 2024', icon: Medal, color: 'text-pink-500', bgColor: 'bg-pink-500/10' },
+type AchievementType = 'trophy' | 'certificate' | 'badge' | 'points';
+
+type Achievement = {
+  id: string;
+  type: AchievementType;
+  title: string;
+  date: string;
+  fileUrl?: string; // For linking to PDF or image
+};
+
+const initialAchievements: Achievement[] = [
+    { id: '1', type: 'trophy', title: 'Top Learner of the Month', date: 'June 2024' },
+    { id: '2', type: 'certificate', title: 'Digital Literacy Certificate', date: 'May 20, 2024', fileUrl: '#' },
+    { id: '3', type: 'badge', title: '5 Videos Watched', date: 'May 18, 2024' },
+    { id: '4', type: 'badge', title: 'First Course Completed', date: 'May 15, 2024' },
+    { id: '5', type: 'points', title: '500 Learning Points', date: 'Accumulated' },
+    { id: '6', type: 'badge', title: 'Community Helper', date: 'April 2024' },
 ];
+
+const getAchievementVisuals = (achievement: Achievement) => {
+    switch (achievement.type) {
+        case 'trophy': return { icon: Trophy, color: 'text-yellow-400' };
+        case 'certificate': return { icon: Award, color: 'text-blue-500' };
+        case 'badge': return { icon: Medal, color: 'text-green-500' };
+        case 'points': return { icon: Star, color: 'text-orange-500' };
+        default: return { icon: Award, color: 'text-gray-500' };
+    }
+};
 
 const LearningModuleCard = ({ module }: { module: LearningModule }) => (
   <Link href={module.url} target="_blank" rel="noopener noreferrer" className="block h-full">
@@ -332,17 +352,19 @@ const LearningModuleCard = ({ module }: { module: LearningModule }) => (
 );
 
 
-const AchievementCard = ({ achievement }: { achievement: (typeof achievements)[0] }) => {
+const AchievementCard = ({ achievement }: { achievement: Achievement }) => {
+    const { icon: Icon, color } = getAchievementVisuals(achievement);
+
     const CardBody = (
         <Card className="group bg-card overflow-hidden h-full flex flex-col items-center justify-center text-center p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1.5 border-2 border-transparent hover:border-primary">
-            <achievement.icon className={`h-16 w-16 mb-3 transform transition-transform duration-300 group-hover:scale-110 ${achievement.color}`} />
+            <Icon className={`h-16 w-16 mb-3 transform transition-transform duration-300 group-hover:scale-110 ${color}`} />
             <CardTitle className="text-base font-bold leading-tight">{achievement.title}</CardTitle>
             <CardDescription className="text-xs mt-1">{achievement.date}</CardDescription>
         </Card>
     );
 
-    return achievement.url ? (
-        <Link href={achievement.url} target="_blank" rel="noopener noreferrer" className="block h-full">
+    return achievement.fileUrl ? (
+        <Link href={achievement.fileUrl} target="_blank" rel="noopener noreferrer" className="block h-full">
             {CardBody}
         </Link>
     ) : CardBody;
@@ -352,32 +374,26 @@ export default function LearningPage() {
   const categories = Object.keys(learningContent);
   const { toast } = useToast();
   const achievementsRef = useRef<HTMLDivElement>(null);
-
+  const [achievements, setAchievements] = useState<Achievement[]>(initialAchievements);
 
   const handleShare = async () => {
-    if (!navigator.share) {
-        await navigator.clipboard.writeText(window.location.href);
-        toast({ title: "Link Copied!", description: "Achievements link copied to your clipboard." });
-        return;
-    }
     const shareData = {
       title: "My Achievements on Gramin Jobs Connect",
       text: "Check out my learning achievements! I'm building new skills.",
       url: window.location.href,
     };
     try {
+      if (navigator.canShare && navigator.canShare(shareData)) {
         await navigator.share(shareData);
         toast({ title: "Shared successfully!" });
+      } else {
+        throw new Error('Web Share API not supported.');
+      }
     } catch (error) {
       console.error("Error sharing:", error);
-      if (error instanceof DOMException && error.name === 'AbortError') {
-        return; // User cancelled the share dialog
-      }
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Could not share at this time.",
-      });
+      // Fallback to copying to clipboard
+      await navigator.clipboard.writeText(window.location.href);
+      toast({ title: "Link Copied!", description: "Achievements link copied to your clipboard." });
     }
   };
 
@@ -544,7 +560,7 @@ const handleDownloadPdf = async () => {
                     </CardHeader>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                         {achievements.map((ach) => (
-                        <AchievementCard key={ach.title} achievement={ach} />
+                          <AchievementCard key={ach.id} achievement={ach} />
                         ))}
                     </div>
                  </div>
