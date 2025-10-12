@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -15,6 +16,7 @@ import {
   Bell,
   MessageSquare,
   Bot,
+  Award,
 } from "lucide-react";
 import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
@@ -24,6 +26,7 @@ export function MainHeader() {
   const navItems = [
     { href: "/jobs", label: "Jobs", icon: Briefcase },
     { href: "/learning", label: "Learning", icon: GraduationCap },
+    { href: "/skill-credentials", label: "Skill Credentials", icon: Award },
     { href: "/analytics", label: "Analytics", icon: BarChart },
     { href: "/smart-recommender", label: "Smart Recommender", icon: Sparkles },
     { href: "/community", label: "Community", icon: Users },
@@ -127,3 +130,5 @@ export function MainHeader() {
     </header>
   );
 }
+
+    
